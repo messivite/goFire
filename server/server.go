@@ -8,9 +8,9 @@ import (
 	"github.com/go-chi/chi/v5"
 	chimw "github.com/go-chi/chi/v5/middleware"
 
-	"github.com/mustafaaksoy/goFire/config"
-	"github.com/mustafaaksoy/goFire/handlers"
-	"github.com/mustafaaksoy/goFire/middleware"
+	"github.com/messivite/goFire/config"
+	"github.com/messivite/goFire/handlers"
+	"github.com/messivite/goFire/middleware"
 )
 
 func NewHandler(cfg *config.Config) (http.Handler, error) {

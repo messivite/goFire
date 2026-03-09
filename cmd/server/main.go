@@ -4,8 +4,8 @@ import (
 	"fmt"
 	"log"
 
-	"github.com/mustafaaksoy/goFire/config"
-	"github.com/mustafaaksoy/goFire/server"
+	"github.com/messivite/goFire/config"
+	"github.com/messivite/goFire/server"
 )
 
 func main() {
