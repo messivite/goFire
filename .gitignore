@@ -3,3 +3,4 @@ service-account*.json
 /gofire
 tmp/
 .vercel/
+node_modules/
