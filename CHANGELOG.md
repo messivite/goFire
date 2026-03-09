@@ -12,7 +12,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 
 - Custom output paths for `gofire gen`: `--server-dir` and `--handlers-dir` CLI flags (e.g. `pkg/server`, `pkg/handler`)
-- Optional `output.serverDir` and `output.handlersDir` in `api.yaml` for projects using custom layouts
+- Optional `output` in `.gofire.yaml` (project root) or `api.yaml` — define paths once, `gofire gen` uses them without flags
 - README and documentation updated with custom layout guidance for existing projects
 
 ### Changed
