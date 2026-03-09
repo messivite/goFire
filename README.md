@@ -1,4 +1,4 @@
-# GoFire
+# GoFire — *Firebase-authenticated Go APIs from YAML*
 
 [![Go Report Card](https://goreportcard.com/badge/github.com/messivite/goFire)](https://goreportcard.com/report/github.com/messivite/goFire)
 [![pkg.go.dev](https://pkg.go.dev/badge/github.com/messivite/goFire.svg)](https://pkg.go.dev/github.com/messivite/goFire)
