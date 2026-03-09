@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.1.15] - 2026-03-09
+
 ### Added
 
 - Handler Registry: `handlers/registry.go` with `Register`/`Get`. Generated handlers auto-register via `init()`
