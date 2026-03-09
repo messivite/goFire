@@ -7,35 +7,52 @@
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
+  <header class="header">
+    <a href="index.html" class="header-logo">GoFire</a>
+    <nav class="header-nav">
+      <a href="index.html">Ana Sayfa</a>
+      <a href="getting-started/installation.html">Kurulum</a>
+      <a href="getting-started/quick-start.html">Hızlı Başlangıç</a>
+      <a href="guides/api-yaml.html">api.yaml</a>
+      <a href="cli/reference.html">CLI</a>
+      <a href="https://github.com/messivite/goFire" target="_blank" rel="noopener">GitHub</a>
+    </nav>
+  </header>
   <button class="mobile-toggle" onclick="document.querySelector('.sidebar').classList.toggle('open')">Menü</button>
   <div class="layout">
     <nav class="sidebar">
       <div class="logo"><a href="index.html">GoFire</a></div>
       <div class="nav-section">
         <div class="nav-section-title">Başlarken</div>
-        <a href="index.html" class="active">Giriş</a>
-        <a href="getting-started/installation.html">Kurulum</a>
-        <a href="getting-started/quick-start.html">Hızlı Başlangıç</a>
-        <a href="getting-started/configuration.html">Yapılandırma</a>
+        <a href="index.html" class="active">Genel Bakış</a>
+        <a href="getting-started/installation.html">GoFire'ı Yükle</a>
+        <a href="getting-started/quick-start.html">İlk Projeyi Oluştur</a>
+        <a href="getting-started/configuration.html">Ortam Değişkenleri</a>
       </div>
       <div class="nav-section">
         <div class="nav-section-title">Rehberler</div>
-        <a href="guides/api-yaml.html">api.yaml</a>
-        <a href="guides/firebase-auth.html">Firebase Auth</a>
-        <a href="guides/upstash-redis.html">Upstash Redis</a>
-        <a href="guides/vercel-deploy.html">Vercel Deployment</a>
+        <a href="guides/api-yaml.html">Endpoint Tanımlama</a>
+        <a href="guides/firebase-auth.html">Kimlik Doğrulama</a>
+        <a href="guides/upstash-redis.html">Önbellek (Redis)</a>
+        <a href="guides/vercel-deploy.html">Sunucuya Yükleme</a>
       </div>
       <div class="nav-section">
         <div class="nav-section-title">Referans</div>
-        <a href="cli/reference.html">CLI Komutları</a>
-        <a href="project-structure.html">Proje Yapısı</a>
+        <a href="cli/reference.html">Tüm CLI Komutları</a>
+        <a href="project-structure.html">Proje Dizin Yapısı</a>
+      </div>
+      <div class="toc">
+        <div class="toc-title">Bu sayfada</div>
+        <a href="#ozellikler">Özellikler</a>
+        <a href="#hizli-baslangic">Hızlı Başlangıç</a>
+        <a href="#nasil-calisir">Nasıl Çalışır?</a>
       </div>
     </nav>
     <main class="main">
       <h1>GoFire</h1>
       <p>Firebase kimlik doğrulamalı API'ler oluşturmak için Go toolkit'i. Kod üretimi ve Vercel deployment desteğiyle.</p>
 
-      <h2>Özellikler</h2>
+      <h2 id="ozellikler">Özellikler</h2>
       <ul>
         <li><strong>Firebase Auth middleware</strong> – Bearer token doğrulama (dosya yolu veya JSON credentials)</li>
         <li><strong>api.yaml</strong> – Endpoint'leri YAML ile tanımlayın, Go handler ve route'ları otomatik üretin</li>
@@ -44,7 +61,7 @@
         <li><strong>Chi router</strong> – Hafif, Go HTTP routing</li>
       </ul>
 
-      <h2>Hızlı Başlangıç</h2>
+      <h2 id="hizli-baslangic">Hızlı Başlangıç</h2>
       <pre><code># CLI'yı yükle
 go install github.com/messivite/goFire/cmd/gofire@latest
 
@@ -67,7 +84,7 @@ go run ./cmd/server</code></pre>
 
       <p><a href="getting-started/quick-start.html">Detaylı hızlı başlangıç rehberi →</a></p>
 
-      <h2>Nasıl Çalışır?</h2>
+      <h2 id="nasil-calisir">Nasıl Çalışır?</h2>
       <pre><code>api.yaml  ──→  gofire gen  ──→  handlers/*.go + server/server.go
                                        │
                              go run ./cmd/server

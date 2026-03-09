@@ -7,34 +7,51 @@
   <link rel="stylesheet" href="../css/style.css">
 </head>
 <body>
+  <header class="header">
+    <a href="../index.html" class="header-logo">GoFire</a>
+    <nav class="header-nav">
+      <a href="../index.html">Ana Sayfa</a>
+      <a href="installation.html">Kurulum</a>
+      <a href="quick-start.html">Hızlı Başlangıç</a>
+      <a href="../guides/api-yaml.html">api.yaml</a>
+      <a href="../cli/reference.html">CLI</a>
+      <a href="https://github.com/messivite/goFire" target="_blank" rel="noopener">GitHub</a>
+    </nav>
+  </header>
   <button class="mobile-toggle" onclick="document.querySelector('.sidebar').classList.toggle('open')">Menü</button>
   <div class="layout">
     <nav class="sidebar">
       <div class="logo"><a href="../index.html">GoFire</a></div>
       <div class="nav-section">
         <div class="nav-section-title">Başlarken</div>
-        <a href="../index.html">Giriş</a>
-        <a href="installation.html">Kurulum</a>
-        <a href="quick-start.html">Hızlı Başlangıç</a>
-        <a href="configuration.html" class="active">Yapılandırma</a>
+        <a href="../index.html">Genel Bakış</a>
+        <a href="installation.html">GoFire'ı Yükle</a>
+        <a href="quick-start.html">İlk Projeyi Oluştur</a>
+        <a href="configuration.html" class="active">Ortam Değişkenleri</a>
       </div>
       <div class="nav-section">
         <div class="nav-section-title">Rehberler</div>
-        <a href="../guides/api-yaml.html">api.yaml</a>
-        <a href="../guides/firebase-auth.html">Firebase Auth</a>
-        <a href="../guides/upstash-redis.html">Upstash Redis</a>
-        <a href="../guides/vercel-deploy.html">Vercel Deployment</a>
+        <a href="../guides/api-yaml.html">Endpoint Tanımlama</a>
+        <a href="../guides/firebase-auth.html">Kimlik Doğrulama</a>
+        <a href="../guides/upstash-redis.html">Önbellek (Redis)</a>
+        <a href="../guides/vercel-deploy.html">Sunucuya Yükleme</a>
       </div>
       <div class="nav-section">
         <div class="nav-section-title">Referans</div>
-        <a href="../cli/reference.html">CLI Komutları</a>
-        <a href="../project-structure.html">Proje Yapısı</a>
+        <a href="../cli/reference.html">Tüm CLI Komutları</a>
+        <a href="../project-structure.html">Proje Dizin Yapısı</a>
+      </div>
+      <div class="toc">
+        <div class="toc-title">Bu sayfada</div>
+        <a href="#ortam-degiskenleri">Ortam Değişkenleri</a>
+        <a href="#env-dosyasi">.env dosyası</a>
+        <a href="#setup-sorulari">gofire setup soruları</a>
       </div>
     </nav>
     <main class="main">
       <h1>Yapılandırma</h1>
 
-      <h2>Ortam Değişkenleri</h2>
+      <h2 id="ortam-degiskenleri">Ortam Değişkenleri</h2>
       <table>
         <thead>
           <tr><th>Değişken</th><th>Gerekli</th><th>Açıklama</th></tr>
@@ -48,11 +65,11 @@
         </tbody>
       </table>
 
-      <h2>.env dosyası</h2>
+      <h2 id="env-dosyasi">.env dosyası</h2>
       <pre><code>cp .env.example .env</code></pre>
       <p>Sonra <code>.env</code> dosyasını düzenleyip değerleri girin.</p>
 
-      <h2>gofire setup soruları</h2>
+      <h2 id="setup-sorulari">gofire setup soruları</h2>
       <table>
         <thead>
           <tr><th>Soru</th><th>Varsayılan</th><th>Açıklama</th></tr>

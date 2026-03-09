@@ -7,44 +7,62 @@
   <link rel="stylesheet" href="../css/style.css">
 </head>
 <body>
+  <header class="header">
+    <a href="../index.html" class="header-logo">GoFire</a>
+    <nav class="header-nav">
+      <a href="../index.html">Ana Sayfa</a>
+      <a href="../getting-started/installation.html">Kurulum</a>
+      <a href="../getting-started/quick-start.html">Hızlı Başlangıç</a>
+      <a href="api-yaml.html">api.yaml</a>
+      <a href="../cli/reference.html">CLI</a>
+      <a href="https://github.com/messivite/goFire" target="_blank" rel="noopener">GitHub</a>
+    </nav>
+  </header>
   <button class="mobile-toggle" onclick="document.querySelector('.sidebar').classList.toggle('open')">Menü</button>
   <div class="layout">
     <nav class="sidebar">
       <div class="logo"><a href="../index.html">GoFire</a></div>
       <div class="nav-section">
         <div class="nav-section-title">Başlarken</div>
-        <a href="../index.html">Giriş</a>
-        <a href="../getting-started/installation.html">Kurulum</a>
-        <a href="../getting-started/quick-start.html">Hızlı Başlangıç</a>
-        <a href="../getting-started/configuration.html">Yapılandırma</a>
+        <a href="../index.html">Genel Bakış</a>
+        <a href="../getting-started/installation.html">GoFire'ı Yükle</a>
+        <a href="../getting-started/quick-start.html">İlk Projeyi Oluştur</a>
+        <a href="../getting-started/configuration.html">Ortam Değişkenleri</a>
       </div>
       <div class="nav-section">
         <div class="nav-section-title">Rehberler</div>
-        <a href="api-yaml.html">api.yaml</a>
-        <a href="firebase-auth.html" class="active">Firebase Auth</a>
-        <a href="upstash-redis.html">Upstash Redis</a>
-        <a href="vercel-deploy.html">Vercel Deployment</a>
+        <a href="api-yaml.html">Endpoint Tanımlama</a>
+        <a href="firebase-auth.html" class="active">Kimlik Doğrulama</a>
+        <a href="upstash-redis.html">Önbellek (Redis)</a>
+        <a href="vercel-deploy.html">Sunucuya Yükleme</a>
       </div>
       <div class="nav-section">
         <div class="nav-section-title">Referans</div>
-        <a href="../cli/reference.html">CLI Komutları</a>
-        <a href="../project-structure.html">Proje Yapısı</a>
+        <a href="../cli/reference.html">Tüm CLI Komutları</a>
+        <a href="../project-structure.html">Proje Dizin Yapısı</a>
+      </div>
+      <div class="toc">
+        <div class="toc-title">Bu sayfada</div>
+        <a href="#service-account">1. Service account</a>
+        <a href="#ortam-degiskeni">2. Ortam değişkeni</a>
+        <a href="#auth-kullan">3. api.yaml'da auth</a>
+        <a href="#vercel">Vercel'de</a>
       </div>
     </nav>
     <main class="main">
       <h1>Firebase Auth</h1>
       <p>Firebase Auth opsiyoneldir. Aktif etmek için:</p>
 
-      <h2>1. Service account indir</h2>
+      <h2 id="service-account">1. Service account indir</h2>
       <p>Firebase Console'dan service account JSON dosyasını indirin.</p>
 
-      <h2>2. Ortam değişkenini ayarla</h2>
+      <h2 id="ortam-degiskeni">2. Ortam değişkenini ayarla</h2>
       <pre><code>FIREBASE_CREDENTIALS_PATH=./service-account.json</code></pre>
 
-      <h2>3. api.yaml'da auth kullan</h2>
+      <h2 id="auth-kullan">3. api.yaml'da auth kullan</h2>
       <p><code>auth: true</code> olan endpoint'ler <code>Authorization: Bearer &lt;token&gt;</code> header'ı gerektirir.</p>
 
-      <h2>Vercel'de</h2>
+      <h2 id="vercel">Vercel'de</h2>
       <p>Vercel'de dosya yolu yerine JSON string kullanın:</p>
       <pre><code>FIREBASE_CREDENTIALS_JSON='{"type":"service_account",...}'</code></pre>
       <p>Veya:</p>
