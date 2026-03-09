@@ -1,16 +1,5 @@
 # GoFire
 
-[![Go Report Card](https://goreportcard.com/badge/github.com/messivite/goFire)](https://goreportcard.com/report/github.com/messivite/goFire)
-[![pkg.go.dev](https://pkg.go.dev/badge/github.com/messivite/goFire.svg)](https://pkg.go.dev/github.com/messivite/goFire)
-[![Go version](https://img.shields.io/github/go-mod/go-version/messivite/goFire)](https://github.com/messivite/goFire)
-[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
-[![GitHub stars](https://img.shields.io/github/stars/messivite/goFire)](https://github.com/messivite/goFire/stargazers)
-[![GitHub forks](https://img.shields.io/github/forks/messivite/goFire)](https://github.com/messivite/goFire/network)
-[![GitHub issues](https://img.shields.io/github/issues/messivite/goFire)](https://github.com/messivite/goFire/issues)
-[![GitHub last commit](https://img.shields.io/github/last-commit/messivite/goFire)](https://github.com/messivite/goFire/commits/main)
-[![GitHub release](https://img.shields.io/github/v/release/messivite/goFire)](https://github.com/messivite/goFire/releases)
-[![GitHub contributors](https://img.shields.io/github/contributors/messivite/goFire)](https://github.com/messivite/goFire/graphs/contributors)
-
 A Go toolkit for building Firebase-authenticated APIs with code generation and Vercel deployment.
 
 ## Features
@@ -25,7 +14,7 @@ A Go toolkit for building Firebase-authenticated APIs with code generation and V
 
 ```bash
 # Install the CLI
-go install github.com/messivite/goFire/cmd/gofire@latest
+go install github.com/mustafaaksoy/goFire/cmd/gofire@latest
 
 # Initialize a new project
 gofire init
@@ -48,7 +37,7 @@ go run ./cmd/server
 ## Installation
 
 ```bash
-go get github.com/messivite/goFire
+go get github.com/mustafaaksoy/goFire
 ```
 
 ## CLI Commands
@@ -111,19 +100,6 @@ Copy `.env.example` to `.env` and fill in your values:
 cp .env.example .env
 ```
 
-## Setup Questions
-
-`gofire setup` asks the following questions interactively:
-
-| Question | Default | Description |
-|----------|---------|-------------|
-| Server port | `8080` | Local server port |
-| Firebase credentials JSON path | (empty) | Path to service account JSON, e.g. `./service-account.json`. Leave empty to skip auth |
-| Enable Redis cache (Upstash)? | `n` | `y` or `n` |
-| Upstash Redis REST URL | — | Only if Redis enabled, e.g. `https://your-db.upstash.io` |
-| Upstash Redis REST Token | — | Only if Redis enabled |
-| Save configuration to .env file? | `n` | Writes answers to `.env` |
-
 ## Firebase Auth
 
 Optional. To enable:
@@ -140,7 +116,7 @@ On Vercel, use `FIREBASE_CREDENTIALS_JSON` with the full JSON string.
 Use the `cache` package when `cfg.RedisEnabled` is true:
 
 ```go
-import "github.com/messivite/goFire/cache"
+import "github.com/mustafaaksoy/goFire/cache"
 
 if cfg.RedisEnabled {
     c, _ := cache.NewUpstashCache(cfg.UpstashRedisRestURL, cfg.UpstashRedisRestToken, "myapp:")

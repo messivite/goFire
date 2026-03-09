@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Kurulum - GoFire</title>
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+  <button class="mobile-toggle" onclick="document.querySelector('.sidebar').classList.toggle('open')">Menü</button>
+  <div class="layout">
+    <nav class="sidebar">
+      <div class="logo"><a href="../index.html">GoFire</a></div>
+      <div class="nav-section">
+        <div class="nav-section-title">Başlarken</div>
+        <a href="../index.html">Giriş</a>
+        <a href="installation.html" class="active">Kurulum</a>
+        <a href="quick-start.html">Hızlı Başlangıç</a>
+        <a href="configuration.html">Yapılandırma</a>
+      </div>
+      <div class="nav-section">
+        <div class="nav-section-title">Rehberler</div>
+        <a href="../guides/api-yaml.html">api.yaml</a>
+        <a href="../guides/firebase-auth.html">Firebase Auth</a>
+        <a href="../guides/upstash-redis.html">Upstash Redis</a>
+        <a href="../guides/vercel-deploy.html">Vercel Deployment</a>
+      </div>
+      <div class="nav-section">
+        <div class="nav-section-title">Referans</div>
+        <a href="../cli/reference.html">CLI Komutları</a>
+        <a href="../project-structure.html">Proje Yapısı</a>
+      </div>
+    </nav>
+    <main class="main">
+      <h1>Kurulum</h1>
+
+      <h2>Go modülü olarak</h2>
+      <pre><code>go get github.com/messivite/goFire</code></pre>
+
+      <h2>CLI olarak</h2>
+      <p>GoFire CLI'yı yüklemek için:</p>
+      <pre><code>go install github.com/messivite/goFire/cmd/gofire@latest</code></pre>
+      <p>Kurulumdan sonra <code>gofire</code> komutunu terminalde kullanabilirsiniz. <code>PATH</code> içinde <code>$GOPATH/bin</code> veya <code>$HOME/go/bin</code> olmalıdır.</p>
+
+      <h2>Gereksinimler</h2>
+      <ul>
+        <li>Go 1.19+</li>
+        <li>Firebase projesi (opsiyonel, auth için)</li>
+        <li>Upstash Redis hesabı (opsiyonel, cache için)</li>
+      </ul>
+    </main>
+  </div>
+</body>
+</html>

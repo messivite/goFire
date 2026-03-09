@@ -5,8 +5,8 @@ import (
 	"log"
 	"net/http"
 
-	"github.com/messivite/goFire/config"
-	"github.com/messivite/goFire/server"
+	"github.com/mustafaaksoy/goFire/config"
+	"github.com/mustafaaksoy/goFire/server"
 )
 
 var h http.Handler

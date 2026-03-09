@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CLI Referans - GoFire</title>
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+  <button class="mobile-toggle" onclick="document.querySelector('.sidebar').classList.toggle('open')">Menü</button>
+  <div class="layout">
+    <nav class="sidebar">
+      <div class="logo"><a href="../index.html">GoFire</a></div>
+      <div class="nav-section">
+        <div class="nav-section-title">Başlarken</div>
+        <a href="../index.html">Giriş</a>
+        <a href="../getting-started/installation.html">Kurulum</a>
+        <a href="../getting-started/quick-start.html">Hızlı Başlangıç</a>
+        <a href="../getting-started/configuration.html">Yapılandırma</a>
+      </div>
+      <div class="nav-section">
+        <div class="nav-section-title">Rehberler</div>
+        <a href="../guides/api-yaml.html">api.yaml</a>
+        <a href="../guides/firebase-auth.html">Firebase Auth</a>
+        <a href="../guides/upstash-redis.html">Upstash Redis</a>
+        <a href="../guides/vercel-deploy.html">Vercel Deployment</a>
+      </div>
+      <div class="nav-section">
+        <div class="nav-section-title">Referans</div>
+        <a href="reference.html" class="active">CLI Komutları</a>
+        <a href="../project-structure.html">Proje Yapısı</a>
+      </div>
+    </nav>
+    <main class="main">
+      <h1>CLI Komutları</h1>
+
+      <table>
+        <thead>
+          <tr><th>Komut</th><th>Açıklama</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><code>gofire init</code></td><td>Varsayılan api.yaml ve health endpoint'lerini oluşturur</td></tr>
+          <tr><td><code>gofire setup</code></td><td>İnteraktif yapılandırma (port, Firebase, Redis) ve .env'e kaydetme</td></tr>
+          <tr><td><code>gofire add endpoint "METHOD /path" [--auth]</code></td><td>api.yaml'a endpoint ekler</td></tr>
+          <tr><td><code>gofire gen</code></td><td>api.yaml'dan handler stub'ları ve server route'larını üretir</td></tr>
+          <tr><td><code>gofire list</code></td><td>api.yaml'daki tüm endpoint'leri listeler</td></tr>
+          <tr><td><code>gofire deploy</code></td><td>İnteraktif Vercel deploy (preview veya production)</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Örnekler</h2>
+      <pre><code>gofire add endpoint "GET /users"
+gofire add endpoint "POST /users --auth"
+gofire add endpoint "GET /users/:id --auth"</code></pre>
+    </main>
+  </div>
+</body>
+</html>

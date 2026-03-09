@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Vercel Deployment - GoFire</title>
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+  <button class="mobile-toggle" onclick="document.querySelector('.sidebar').classList.toggle('open')">Menü</button>
+  <div class="layout">
+    <nav class="sidebar">
+      <div class="logo"><a href="../index.html">GoFire</a></div>
+      <div class="nav-section">
+        <div class="nav-section-title">Başlarken</div>
+        <a href="../index.html">Giriş</a>
+        <a href="../getting-started/installation.html">Kurulum</a>
+        <a href="../getting-started/quick-start.html">Hızlı Başlangıç</a>
+        <a href="../getting-started/configuration.html">Yapılandırma</a>
+      </div>
+      <div class="nav-section">
+        <div class="nav-section-title">Rehberler</div>
+        <a href="api-yaml.html">api.yaml</a>
+        <a href="firebase-auth.html">Firebase Auth</a>
+        <a href="upstash-redis.html">Upstash Redis</a>
+        <a href="vercel-deploy.html" class="active">Vercel Deployment</a>
+      </div>
+      <div class="nav-section">
+        <div class="nav-section-title">Referans</div>
+        <a href="../cli/reference.html">CLI Komutları</a>
+        <a href="../project-structure.html">Proje Yapısı</a>
+      </div>
+    </nav>
+    <main class="main">
+      <h1>Vercel Deployment</h1>
+
+      <h2>CLI ile deploy</h2>
+      <pre><code>gofire deploy</code></pre>
+      <p>İnteraktif olarak preview veya production deploy seçebilirsiniz.</p>
+
+      <h2>Manuel deploy</h2>
+      <pre><code>vercel --prod</code></pre>
+
+      <h2>Ortam değişkenleri</h2>
+      <p>Firebase credentials gibi değişkenleri Vercel'e ekleyin:</p>
+      <pre><code>vercel env add FIREBASE_CREDENTIALS_JSON production</code></pre>
+      <p>Vercel'de <code>FIREBASE_CREDENTIALS_PATH</code> yerine <code>FIREBASE_CREDENTIALS_JSON</code> kullanın (tam JSON string).</p>
+    </main>
+  </div>
+</body>
+</html>
