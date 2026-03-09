@@ -1,0 +1,15 @@
+version: "1"
+basePath: /api
+endpoints:
+    - method: GET
+      path: /api
+      handler: Health
+      auth: false
+    - method: GET
+      path: /api/health
+      handler: Health
+      auth: false
+    - method: GET
+      path: /users/:id
+      handler: GetUsersById
+      auth: true

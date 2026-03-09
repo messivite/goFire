@@ -1,0 +1,12 @@
+{
+  "framework": null,
+  "build": {
+    "env": {
+      "CGO_ENABLED": "0"
+    }
+  },
+  "rewrites": [
+    { "source": "/", "destination": "/api?__path=" },
+    { "source": "/api/:path*", "destination": "/api?__path=api/:path*" }
+  ]
+}
