@@ -183,10 +183,16 @@ func cmdNew() {
 		// non-fatal
 	}
 
+	// Makefile
+	makefile := "run:\n\tgo run ./cmd/server\n\nbuild:\n\tgo build -o bin/server ./cmd/server\n"
+	if err := os.WriteFile(filepath.Join(name, "Makefile"), []byte(makefile), 0644); err != nil {
+		// non-fatal
+	}
+
 	fmt.Printf("\nCreated project %q.\n", name)
 	fmt.Printf("  cd %s\n", name)
 	fmt.Println("  go mod tidy")
-	fmt.Println("  go run ./cmd/server")
+	fmt.Println("  make run")
 }
 
 // --- init ---

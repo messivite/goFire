@@ -88,9 +88,9 @@ gofire init</code></pre>
 
       <h2 id="add-endpoints">3. Add endpoints</h2>
       <pre><code>gofire add endpoint "GET /users"
-gofire add endpoint "POST /users --auth"
-gofire add endpoint "GET /users/:id --auth"</code></pre>
-      <p><code>--auth</code> protects the endpoint with Firebase Auth.</p>
+gofire add endpoint "POST /users" --auth
+gofire add endpoint "GET /users/:id" --auth</code></pre>
+      <p><code>--auth</code> protects the endpoint with Firebase Auth. Note: <code>--auth</code> must be outside the quotes.</p>
 
       <h2 id="generate">4. Generate code</h2>
       <pre><code>gofire gen

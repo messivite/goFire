@@ -91,7 +91,7 @@ go mod tidy
 go run ./cmd/server</code></pre>
       <p>Or add endpoints and regenerate:</p>
       <pre><code>gofire add endpoint "GET /users"
-gofire add endpoint "POST /users --auth"
+gofire add endpoint "POST /users" --auth
 gofire gen
 go mod tidy
 
