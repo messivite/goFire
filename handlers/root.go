@@ -3,7 +3,7 @@ package handlers
 import (
 	"net/http"
 
-	"github.com/mustafaaksoy/goFire/config"
+	"github.com/messivite/goFire/config"
 )
 
 func Root(w http.ResponseWriter, r *http.Request) {

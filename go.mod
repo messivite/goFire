@@ -1,4 +1,4 @@
-module github.com/mustafaaksoy/goFire
+module github.com/messivite/goFire
 
 go 1.26.1
 
