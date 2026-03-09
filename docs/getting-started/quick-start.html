@@ -7,54 +7,73 @@
   <link rel="stylesheet" href="../css/style.css">
 </head>
 <body>
+  <header class="header">
+    <a href="../index.html" class="header-logo">GoFire</a>
+    <nav class="header-nav">
+      <a href="../index.html">Ana Sayfa</a>
+      <a href="installation.html">Kurulum</a>
+      <a href="quick-start.html">Hızlı Başlangıç</a>
+      <a href="../guides/api-yaml.html">api.yaml</a>
+      <a href="../cli/reference.html">CLI</a>
+      <a href="https://github.com/messivite/goFire" target="_blank" rel="noopener">GitHub</a>
+    </nav>
+  </header>
   <button class="mobile-toggle" onclick="document.querySelector('.sidebar').classList.toggle('open')">Menü</button>
   <div class="layout">
     <nav class="sidebar">
       <div class="logo"><a href="../index.html">GoFire</a></div>
       <div class="nav-section">
         <div class="nav-section-title">Başlarken</div>
-        <a href="../index.html">Giriş</a>
-        <a href="installation.html">Kurulum</a>
-        <a href="quick-start.html" class="active">Hızlı Başlangıç</a>
-        <a href="configuration.html">Yapılandırma</a>
+        <a href="../index.html">Genel Bakış</a>
+        <a href="installation.html">GoFire'ı Yükle</a>
+        <a href="quick-start.html" class="active">İlk Projeyi Oluştur</a>
+        <a href="configuration.html">Ortam Değişkenleri</a>
       </div>
       <div class="nav-section">
         <div class="nav-section-title">Rehberler</div>
-        <a href="../guides/api-yaml.html">api.yaml</a>
-        <a href="../guides/firebase-auth.html">Firebase Auth</a>
-        <a href="../guides/upstash-redis.html">Upstash Redis</a>
-        <a href="../guides/vercel-deploy.html">Vercel Deployment</a>
+        <a href="../guides/api-yaml.html">Endpoint Tanımlama</a>
+        <a href="../guides/firebase-auth.html">Kimlik Doğrulama</a>
+        <a href="../guides/upstash-redis.html">Önbellek (Redis)</a>
+        <a href="../guides/vercel-deploy.html">Sunucuya Yükleme</a>
       </div>
       <div class="nav-section">
         <div class="nav-section-title">Referans</div>
-        <a href="../cli/reference.html">CLI Komutları</a>
-        <a href="../project-structure.html">Proje Yapısı</a>
+        <a href="../cli/reference.html">Tüm CLI Komutları</a>
+        <a href="../project-structure.html">Proje Dizin Yapısı</a>
+      </div>
+      <div class="toc">
+        <div class="toc-title">Bu sayfada</div>
+        <a href="#proje-olustur">1. Proje oluştur</a>
+        <a href="#yapilandir">2. Yapılandır</a>
+        <a href="#endpoint-ekle">3. Endpoint ekle</a>
+        <a href="#kod-uret">4. Kod üret</a>
+        <a href="#calistir">5. Çalıştır</a>
       </div>
     </nav>
     <main class="main">
       <h1>Hızlı Başlangıç</h1>
 
-      <h2>1. Proje oluştur</h2>
+      <h2 id="proje-olustur">1. Proje oluştur</h2>
       <pre><code>mkdir my-api && cd my-api
 go mod init my-api
 gofire init</code></pre>
       <p><code>gofire init</code> varsayılan <code>api.yaml</code> ve health endpoint'lerini oluşturur.</p>
 
-      <h2>2. Yapılandır</h2>
+      <h2 id="yapilandir">2. Yapılandır</h2>
       <pre><code>gofire setup</code></pre>
       <p>Port, Firebase credentials ve Redis ayarlarını interaktif olarak yapılandırın. Değerleri <code>.env</code> dosyasına kaydedebilirsiniz.</p>
 
-      <h2>3. Endpoint ekle</h2>
+      <h2 id="endpoint-ekle">3. Endpoint ekle</h2>
       <pre><code>gofire add endpoint "GET /users"
 gofire add endpoint "POST /users --auth"
 gofire add endpoint "GET /users/:id --auth"</code></pre>
       <p><code>--auth</code> parametresi endpoint'i Firebase Auth ile korur.</p>
 
-      <h2>4. Kod üret</h2>
+      <h2 id="kod-uret">4. Kod üret</h2>
       <pre><code>gofire gen</code></pre>
       <p>Handler stub'ları ve server route'larını <code>api.yaml</code>'dan üretir.</p>
 
-      <h2>5. Çalıştır</h2>
+      <h2 id="calistir">5. Çalıştır</h2>
       <pre><code>go run ./cmd/server</code></pre>
       <p>Sunucu varsayılan olarak <code>http://localhost:8080</code> adresinde çalışır.</p>
     </main>

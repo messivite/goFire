@@ -7,35 +7,51 @@
   <link rel="stylesheet" href="../css/style.css">
 </head>
 <body>
+  <header class="header">
+    <a href="../index.html" class="header-logo">GoFire</a>
+    <nav class="header-nav">
+      <a href="../index.html">Ana Sayfa</a>
+      <a href="../getting-started/installation.html">Kurulum</a>
+      <a href="../getting-started/quick-start.html">Hızlı Başlangıç</a>
+      <a href="api-yaml.html">api.yaml</a>
+      <a href="../cli/reference.html">CLI</a>
+      <a href="https://github.com/messivite/goFire" target="_blank" rel="noopener">GitHub</a>
+    </nav>
+  </header>
   <button class="mobile-toggle" onclick="document.querySelector('.sidebar').classList.toggle('open')">Menü</button>
   <div class="layout">
     <nav class="sidebar">
       <div class="logo"><a href="../index.html">GoFire</a></div>
       <div class="nav-section">
         <div class="nav-section-title">Başlarken</div>
-        <a href="../index.html">Giriş</a>
-        <a href="../getting-started/installation.html">Kurulum</a>
-        <a href="../getting-started/quick-start.html">Hızlı Başlangıç</a>
-        <a href="../getting-started/configuration.html">Yapılandırma</a>
+        <a href="../index.html">Genel Bakış</a>
+        <a href="../getting-started/installation.html">GoFire'ı Yükle</a>
+        <a href="../getting-started/quick-start.html">İlk Projeyi Oluştur</a>
+        <a href="../getting-started/configuration.html">Ortam Değişkenleri</a>
       </div>
       <div class="nav-section">
         <div class="nav-section-title">Rehberler</div>
-        <a href="api-yaml.html">api.yaml</a>
-        <a href="firebase-auth.html">Firebase Auth</a>
-        <a href="upstash-redis.html" class="active">Upstash Redis</a>
-        <a href="vercel-deploy.html">Vercel Deployment</a>
+        <a href="api-yaml.html">Endpoint Tanımlama</a>
+        <a href="firebase-auth.html">Kimlik Doğrulama</a>
+        <a href="upstash-redis.html" class="active">Önbellek (Redis)</a>
+        <a href="vercel-deploy.html">Sunucuya Yükleme</a>
       </div>
       <div class="nav-section">
         <div class="nav-section-title">Referans</div>
-        <a href="../cli/reference.html">CLI Komutları</a>
-        <a href="../project-structure.html">Proje Yapısı</a>
+        <a href="../cli/reference.html">Tüm CLI Komutları</a>
+        <a href="../project-structure.html">Proje Dizin Yapısı</a>
+      </div>
+      <div class="toc">
+        <div class="toc-title">Bu sayfada</div>
+        <a href="#kullanim">Kullanım</a>
+        <a href="#ortam-degiskenleri">Ortam değişkenleri</a>
       </div>
     </nav>
     <main class="main">
       <h1>Upstash Redis</h1>
       <p><code>gofire setup</code> sırasında Redis cache'i etkinleştirirseniz, <code>cfg.RedisEnabled</code> true olur ve cache paketini kullanabilirsiniz.</p>
 
-      <h2>Kullanım</h2>
+      <h2 id="kullanim">Kullanım</h2>
       <pre><code>import "github.com/messivite/goFire/cache"
 
 if cfg.RedisEnabled {
@@ -45,7 +61,7 @@ if cfg.RedisEnabled {
 
 // Handler'da: c.Get(ctx, key), c.SetAsync(ctx, key, data, ttlSeconds)</code></pre>
 
-      <h2>Ortam değişkenleri</h2>
+      <h2 id="ortam-degiskenleri">Ortam değişkenleri</h2>
       <ul>
         <li><code>UPSTASH_REDIS_REST_URL</code> – örn. https://your-db.upstash.io</li>
         <li><code>UPSTASH_REDIS_REST_TOKEN</code></li>
