@@ -34,8 +34,9 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
 
-          # Get current version from config/version.go
-          CURRENT=$(grep 'Version = "' config/version.go | sed 's/.*"\(.*\)".*/\1/')
+          # Get next version from latest git tag (source of truth)
+          LATEST_TAG=$(git describe --tags --abbrev=0 2>/dev/null || echo "v0.0.0")
+          CURRENT="${LATEST_TAG#v}"
           MAJOR=$(echo $CURRENT | cut -d. -f1)
           MINOR=$(echo $CURRENT | cut -d. -f2)
           PATCH=$(echo $CURRENT | cut -d. -f3)
@@ -44,7 +45,7 @@ jobs:
           echo "new_version=$NEW_VERSION" >> $GITHUB_OUTPUT
 
           # Update config/version.go
-          sed -i "s/Version = \"$CURRENT\"/Version = \"$NEW_VERSION\"/" config/version.go
+          sed -i "s/Version = \"[^\"]*\"/Version = \"$NEW_VERSION\"/" config/version.go
 
           # Update CHANGELOG: add new version section
           TODAY=$(date +%Y-%m-%d)
