@@ -15,16 +15,50 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: "20"
-          cache: npm
+      - name: Skip if release commit
+        id: skip
+        run: |
+          if [[ "${{ github.event.head_commit.message }}" == chore(release):* ]] || [[ "${{ github.event.head_commit.message }}" == *"[skip ci]"* ]]; then
+            echo "skip=true" >> $GITHUB_OUTPUT
+          else
+            echo "skip=false" >> $GITHUB_OUTPUT
+          fi
 
-      - name: Install dependencies
-        run: npm ci
-
-      - name: Release
+      - name: Bump version and release
+        id: bump
+        if: steps.skip.outputs.skip == 'false'
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: npx semantic-release
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
+          # Get current version from config/version.go
+          CURRENT=$(grep 'Version = "' config/version.go | sed 's/.*"\(.*\)".*/\1/')
+          MAJOR=$(echo $CURRENT | cut -d. -f1)
+          MINOR=$(echo $CURRENT | cut -d. -f2)
+          PATCH=$(echo $CURRENT | cut -d. -f3)
+          NEW_PATCH=$((PATCH + 1))
+          NEW_VERSION="${MAJOR}.${MINOR}.${NEW_PATCH}"
+          echo "new_version=$NEW_VERSION" >> $GITHUB_OUTPUT
+
+          # Update config/version.go
+          sed -i "s/Version = \"$CURRENT\"/Version = \"$NEW_VERSION\"/" config/version.go
+
+          # Update CHANGELOG: add new version section
+          TODAY=$(date +%Y-%m-%d)
+          sed -i "s/## \[Unreleased\]/## [Unreleased]\n\n## [$NEW_VERSION] - $TODAY/" CHANGELOG.md
+
+          git add config/version.go CHANGELOG.md
+          git commit -m "chore(release): v$NEW_VERSION [skip ci]"
+          git tag "v$NEW_VERSION"
+          git push origin main --follow-tags
+
+      - name: Create GitHub Release
+        if: steps.skip.outputs.skip == 'false'
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: v${{ steps.bump.outputs.new_version }}
+          generate_release_notes: true
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
