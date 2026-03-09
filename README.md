@@ -33,7 +33,7 @@ go install github.com/messivite/goFire/cmd/gofire@latest
 gofire new my-api
 cd my-api
 go mod tidy
-go run ./cmd/server
+make run
 ```
 
 **Option B — Existing project** (manual setup):
@@ -45,7 +45,7 @@ go get github.com/messivite/goFire
 gofire init
 gofire setup
 gofire add endpoint "GET /users"
-gofire add endpoint "POST /users --auth"
+gofire add endpoint "POST /users" --auth
 gofire gen
 go mod tidy
 go run ./cmd/server

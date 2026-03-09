@@ -73,8 +73,9 @@
 
       <h2 id="examples">Examples</h2>
       <pre><code>gofire add endpoint "GET /users"
-gofire add endpoint "POST /users --auth"
-gofire add endpoint "GET /users/:id --auth"</code></pre>
+gofire add endpoint "POST /users" --auth
+gofire add endpoint "GET /users/:id" --auth</code></pre>
+      <p><code>--auth</code> must be outside the quotes (e.g. <code>"POST /users" --auth</code>).</p>
     </main>
   </div>
 </body>
