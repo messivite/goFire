@@ -50,6 +50,7 @@
         <div class="toc-title">On this page</div>
         <a href="#example">Example api.yaml</a>
         <a href="#fields">Fields</a>
+        <a href="#output">Output paths</a>
         <a href="#after-changes">After changes</a>
       </div>
     </nav>
@@ -89,6 +90,13 @@ endpoints:
         <li><code>auth: false</code> – Route is public</li>
         <li><code>handler</code> – Function name generated in <code>handlers/</code> directory</li>
       </ul>
+
+      <h2 id="output">Output paths</h2>
+      <p>Use the optional <code>output</code> section when your project uses a different layout (e.g. <code>pkg/server</code>, <code>pkg/handler</code> instead of <code>server/</code> and <code>handlers/</code>):</p>
+      <pre><code>output:
+  serverDir: pkg/server
+  handlersDir: pkg/handler</code></pre>
+      <p>Then <code>gofire gen</code> will write generated files to these paths. CLI flags <code>--server-dir</code> and <code>--handlers-dir</code> override this config.</p>
 
       <h2 id="after-changes">After api.yaml changes</h2>
       <p>After editing <code>api.yaml</code>, regenerate handlers and routes:</p>

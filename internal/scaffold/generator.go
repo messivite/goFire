@@ -11,6 +11,7 @@ import (
 )
 
 type handlerData struct {
+	PackageName string
 	Name        string
 	Method      string
 	Path        string
@@ -69,36 +70,50 @@ func extractParamNames(path string) []paramInfo {
 }
 
 type serverData struct {
-	ModulePath    string
-	PublicRoutes  []routeData
-	AuthRoutes    []routeData
-	HasAuthRoutes bool
+	ModulePath         string
+	HandlersPackage    string
+	HandlersImportPath string
+	PublicRoutes       []routeData
+	AuthRoutes         []routeData
+	HasAuthRoutes      bool
 }
 
 // GenerateHandlers creates handler stub files for endpoints that don't already have one.
 // Built-in handlers (Health, Root) get specific implementations; others get generic stubs.
+// The Go package name is derived from filepath.Base(handlersDir).
 func GenerateHandlers(cfg *apiyaml.APIConfig, handlersDir string) error {
 	if err := os.MkdirAll(handlersDir, 0755); err != nil {
 		return err
 	}
 
-	// Always ensure Health and Root exist (used by server)
+	pkgName := filepath.Base(handlersDir)
+
+	builtinTemplates := map[string]string{
+		"Health": healthHandlerTemplate,
+		"Root":   rootHandlerContent,
+	}
+
 	for _, name := range []string{"Health", "Root"} {
 		filename := strings.ToLower(name) + ".go"
 		fullPath := filepath.Join(handlersDir, filename)
 		if _, err := os.Stat(fullPath); err == nil {
 			continue
 		}
-		var content string
-		switch name {
-		case "Health":
-			content = healthHandlerContent
-		case "Root":
-			content = rootHandlerContent
-		default:
+		tmplStr, ok := builtinTemplates[name]
+		if !ok {
 			continue
 		}
-		if err := os.WriteFile(fullPath, []byte(content), 0644); err != nil {
+		tmpl, err := template.New(name).Parse(tmplStr)
+		if err != nil {
+			return err
+		}
+		f, err := os.Create(fullPath)
+		if err != nil {
+			return err
+		}
+		err = tmpl.Execute(f, struct{ PackageName string }{PackageName: pkgName})
+		f.Close()
+		if err != nil {
 			return err
 		}
 		fmt.Printf("  created %s\n", fullPath)
@@ -142,6 +157,7 @@ func GenerateHandlers(cfg *apiyaml.APIConfig, handlersDir string) error {
 		useParams := strings.Join(useLines, "\n\t")
 
 		err = tmpl.Execute(f, handlerData{
+			PackageName: pkgName,
 			Name:        ep.Handler,
 			Method:      ep.Method,
 			Path:        ep.Path,
@@ -162,16 +178,25 @@ func GenerateHandlers(cfg *apiyaml.APIConfig, handlersDir string) error {
 
 // GenerateServer writes server/server.go from the api.yaml config.
 // modulePath is read from go.mod; if empty, falls back to "example".
-func GenerateServer(cfg *apiyaml.APIConfig, serverDir string, modulePath string) error {
+// handlersDir is the relative path to the handlers directory (e.g. "handlers", "pkg/handler").
+func GenerateServer(cfg *apiyaml.APIConfig, serverDir string, modulePath string, handlersDir string) error {
 	if err := os.MkdirAll(serverDir, 0755); err != nil {
 		return err
 	}
 	if modulePath == "" {
 		modulePath = "example"
 	}
+	if handlersDir == "" {
+		handlersDir = "handlers"
+	}
+
+	handlersPackage := filepath.Base(handlersDir)
+	handlersImportPath := modulePath + "/" + filepath.ToSlash(handlersDir)
 
 	var sd serverData
 	sd.ModulePath = modulePath
+	sd.HandlersPackage = handlersPackage
+	sd.HandlersImportPath = handlersImportPath
 	for _, ep := range cfg.Endpoints {
 		rd := routeData{
 			ChiMethod: chiMethod(ep.Method),

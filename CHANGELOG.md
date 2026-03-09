@@ -7,6 +7,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- Custom output paths for `gofire gen`: `--server-dir` and `--handlers-dir` CLI flags (e.g. `pkg/server`, `pkg/handler`)
+- Optional `output.serverDir` and `output.handlersDir` in `api.yaml` for projects using custom layouts
+- README and documentation updated with custom layout guidance for existing projects
+
+### Changed
+
+- `gofire gen` derives handler package name from output directory (e.g. `pkg/handler` → `package handler`)
+- `GenerateServer` now accepts `handlersDir` and generates correct import paths for any layout
+
 ## [0.1.11] - 2026-03-09
 
 ## [0.1.10] - 2026-03-09
