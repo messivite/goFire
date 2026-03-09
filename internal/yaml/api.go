@@ -8,7 +8,10 @@ import (
 	"gopkg.in/yaml.v3"
 )
 
-const DefaultFile = "api.yaml"
+const (
+	DefaultFile      = "api.yaml"
+	GoFireConfigFile = ".gofire.yaml"
+)
 
 type Endpoint struct {
 	Method  string `yaml:"method"`
@@ -29,24 +32,52 @@ type APIConfig struct {
 	Output    *OutputConfig `yaml:"output,omitempty"`
 }
 
-// ResolveServerDir returns the configured server directory or the default.
-func (c *APIConfig) ResolveServerDir(flagVal string) string {
+// GoFireConfig is the structure of .gofire.yaml (project-level overrides).
+type GoFireConfig struct {
+	Output *OutputConfig `yaml:"output,omitempty"`
+}
+
+// LoadGoFireConfig reads .gofire.yaml from the given path.
+// Returns (nil, nil) if the file does not exist; returns error only when the file exists but fails to parse.
+func LoadGoFireConfig(path string) (*GoFireConfig, error) {
+	data, err := os.ReadFile(path)
+	if err != nil {
+		if os.IsNotExist(err) {
+			return nil, nil
+		}
+		return nil, fmt.Errorf("reading %s: %w", path, err)
+	}
+	var cfg GoFireConfig
+	if err := yaml.Unmarshal(data, &cfg); err != nil {
+		return nil, fmt.Errorf("parsing %s: %w", path, err)
+	}
+	return &cfg, nil
+}
+
+// ResolveServerDir returns server directory. Priority: flag > .gofire.yaml > api.yaml output > default.
+func ResolveServerDir(apiOutput, gofireOutput *OutputConfig, flagVal string) string {
 	if flagVal != "" {
 		return flagVal
 	}
-	if c.Output != nil && c.Output.ServerDir != "" {
-		return c.Output.ServerDir
+	if gofireOutput != nil && gofireOutput.ServerDir != "" {
+		return gofireOutput.ServerDir
+	}
+	if apiOutput != nil && apiOutput.ServerDir != "" {
+		return apiOutput.ServerDir
 	}
 	return "server"
 }
 
-// ResolveHandlersDir returns the configured handlers directory or the default.
-func (c *APIConfig) ResolveHandlersDir(flagVal string) string {
+// ResolveHandlersDir returns handlers directory. Priority: flag > .gofire.yaml > api.yaml output > default.
+func ResolveHandlersDir(apiOutput, gofireOutput *OutputConfig, flagVal string) string {
 	if flagVal != "" {
 		return flagVal
 	}
-	if c.Output != nil && c.Output.HandlersDir != "" {
-		return c.Output.HandlersDir
+	if gofireOutput != nil && gofireOutput.HandlersDir != "" {
+		return gofireOutput.HandlersDir
+	}
+	if apiOutput != nil && apiOutput.HandlersDir != "" {
+		return apiOutput.HandlersDir
 	}
 	return "handlers"
 }

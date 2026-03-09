@@ -52,17 +52,14 @@ go mod tidy
 go run ./cmd/server
 ```
 
-> **Custom layout (pkg/server, pkg/handler)?** By default `gofire gen` writes to `server/` and `handlers/`. If your project uses `pkg/server` and `pkg/handler`, use:
-> ```bash
-> gofire gen --server-dir pkg/server --handlers-dir pkg/handler
-> ```
-> Or add to `api.yaml`:
+> **Custom layout (pkg/server, pkg/handler)?** By default `gofire gen` writes to `server/` and `handlers/`. Define paths once in `.gofire.yaml` or `api.yaml`:
 > ```yaml
+> # .gofire.yaml (project root) or api.yaml output section
 > output:
 >   serverDir: pkg/server
 >   handlersDir: pkg/handler
 > ```
-> Then run `gofire gen` as usual. CLI flags override the config.
+> Then run `gofire gen` without flags. CLI flags `--server-dir` / `--handlers-dir` override config.
 
 > **Build errors?** Run `go mod tidy` to fetch transitive dependencies. Run `go run ./cmd/server` from the project root (not `go run .`).
 
@@ -150,7 +147,7 @@ endpoints:
 - `auth: true` – route is protected by Firebase Auth middleware
 - `auth: false` – route is public
 - `handler` – generated function name in `handlers/` directory
-- `output` (optional) – custom paths for `gofire gen` when using layouts like `pkg/server`, `pkg/handler`:
+- `output` (optional) – custom paths for `gofire gen`. Can be in `api.yaml` or in `.gofire.yaml` at project root. Resolution: CLI flag > `.gofire.yaml` > `api.yaml` output > default:
 
 ```yaml
 output:

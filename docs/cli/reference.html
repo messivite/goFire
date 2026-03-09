@@ -74,12 +74,11 @@
       </table>
 
       <h2 id="custom-output-paths">Custom output paths</h2>
-      <p>If your project uses <code>pkg/server</code> and <code>pkg/handler</code> instead of <code>server/</code> and <code>handlers/</code>, pass paths to <code>gofire gen</code>:</p>
-      <pre><code>gofire gen --server-dir pkg/server --handlers-dir pkg/handler</code></pre>
-      <p>Or add an <code>output</code> section to <code>api.yaml</code> (CLI flags override):</p>
+      <p>Define paths once so you don't repeat <code>--server-dir</code> / <code>--handlers-dir</code>. Add to <code>.gofire.yaml</code> (project root) or <code>api.yaml</code>:</p>
       <pre><code>output:
   serverDir: pkg/server
   handlersDir: pkg/handler</code></pre>
+      <p>Resolution order: CLI flags &gt; <code>.gofire.yaml</code> &gt; <code>api.yaml</code> output &gt; default.</p>
 
       <h2 id="new-vs-init">new vs init</h2>
       <p><strong>gofire new</strong> — Start from scratch. Creates directory, go.mod, go get, api.yaml, handlers, server, .gitignore. One command, ready to run.</p>

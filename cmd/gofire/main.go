@@ -286,6 +286,7 @@ func cmdAdd() {
 
 func cmdGen() {
 	yamlPath := apiyaml.DefaultFile
+	wd, _ := os.Getwd()
 
 	var flagServerDir, flagHandlersDir string
 	for i := 2; i < len(os.Args); i++ {
@@ -309,8 +310,23 @@ func cmdGen() {
 		os.Exit(1)
 	}
 
-	serverDir := cfg.ResolveServerDir(flagServerDir)
-	handlersDir := cfg.ResolveHandlersDir(flagHandlersDir)
+	gofirePath := filepath.Join(wd, apiyaml.GoFireConfigFile)
+	gofireCfg, err := apiyaml.LoadGoFireConfig(gofirePath)
+	if err != nil {
+		fmt.Printf("Error loading %s: %v\n", gofirePath, err)
+		os.Exit(1)
+	}
+
+	var gofireOutput *apiyaml.OutputConfig
+	if gofireCfg != nil && gofireCfg.Output != nil {
+		gofireOutput = gofireCfg.Output
+	}
+	var apiOutput *apiyaml.OutputConfig
+	if cfg.Output != nil {
+		apiOutput = cfg.Output
+	}
+	serverDir := apiyaml.ResolveServerDir(apiOutput, gofireOutput, flagServerDir)
+	handlersDir := apiyaml.ResolveHandlersDir(apiOutput, gofireOutput, flagHandlersDir)
 
 	fmt.Println("Generating handlers...")
 	if err := scaffold.GenerateHandlers(cfg, handlersDir); err != nil {
@@ -318,7 +334,6 @@ func cmdGen() {
 		os.Exit(1)
 	}
 
-	wd, _ := os.Getwd()
 	modulePath := scaffold.ReadGoModModule(wd)
 	if modulePath == "" {
 		modulePath = "example"
