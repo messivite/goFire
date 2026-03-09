@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="tr">
+<html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,49 +10,49 @@
   <header class="header">
     <a href="../index.html" class="header-logo">GoFire</a>
     <nav class="header-nav">
-      <a href="../index.html">Ana Sayfa</a>
-      <a href="../getting-started/installation.html">Kurulum</a>
-      <a href="../getting-started/quick-start.html">Hızlı Başlangıç</a>
+      <a href="../index.html">Home</a>
+      <a href="../getting-started/installation.html">Installation</a>
+      <a href="../getting-started/quick-start.html">Quick Start</a>
       <a href="api-yaml.html" class="header-link-active">api.yaml</a>
       <a href="../cli/reference.html">CLI</a>
       <a href="https://github.com/messivite/goFire" class="header-github" target="_blank" rel="noopener">GitHub</a>
     </nav>
   </header>
-  <button class="mobile-toggle" onclick="document.querySelector('.sidebar').classList.toggle('open')">Menü</button>
+  <button class="mobile-toggle" onclick="document.querySelector('.sidebar').classList.toggle('open')">Menu</button>
   <div class="layout">
     <nav class="sidebar">
       <div class="logo"><a href="../index.html">GoFire</a></div>
       <div class="nav-section">
-        <div class="nav-section-title">Başlarken</div>
-        <a href="../index.html">Genel Bakış</a>
-        <a href="../getting-started/installation.html">GoFire'ı Yükle</a>
-        <a href="../getting-started/quick-start.html">İlk Projeyi Oluştur</a>
-        <a href="../getting-started/configuration.html">Ortam Değişkenleri</a>
+        <div class="nav-section-title">Getting Started</div>
+        <a href="../index.html">Overview</a>
+        <a href="../getting-started/installation.html">Install GoFire</a>
+        <a href="../getting-started/quick-start.html">Create First Project</a>
+        <a href="../getting-started/configuration.html">Environment Variables</a>
       </div>
       <div class="nav-section">
-        <div class="nav-section-title">Rehberler</div>
-        <a href="api-yaml.html" class="active">Endpoint Tanımlama</a>
-        <a href="firebase-auth.html">Kimlik Doğrulama</a>
-        <a href="upstash-redis.html">Önbellek (Redis)</a>
-        <a href="vercel-deploy.html">Sunucuya Yükleme</a>
+        <div class="nav-section-title">Guides</div>
+        <a href="api-yaml.html" class="active">Endpoint Definitions</a>
+        <a href="firebase-auth.html">Authentication</a>
+        <a href="upstash-redis.html">Redis Cache</a>
+        <a href="vercel-deploy.html">Vercel Deployment</a>
       </div>
       <div class="nav-section">
-        <div class="nav-section-title">Referans</div>
-        <a href="../cli/reference.html">Tüm CLI Komutları</a>
-        <a href="../project-structure.html">Proje Dizin Yapısı</a>
+        <div class="nav-section-title">Reference</div>
+        <a href="../cli/reference.html">CLI Commands</a>
+        <a href="../project-structure.html">Project Structure</a>
       </div>
       <div class="toc">
-        <div class="toc-title">Bu sayfada</div>
-        <a href="#ornek">Örnek api.yaml</a>
-        <a href="#alanlar">Alanlar</a>
-        <a href="#degisiklik-sonrasi">Değişiklik sonrası</a>
+        <div class="toc-title">On this page</div>
+        <a href="#example">Example api.yaml</a>
+        <a href="#fields">Fields</a>
+        <a href="#after-changes">After changes</a>
       </div>
     </nav>
     <main class="main">
       <h1>api.yaml</h1>
-      <p class="lead">Tüm endpoint'ler <code>api.yaml</code> dosyasında tanımlanır. Dosyayı doğrudan düzenleyebilir veya <code>gofire add endpoint</code> ile ekleyebilirsiniz.</p>
+      <p class="lead">All endpoints are defined in <code>api.yaml</code>. Edit it directly or add via <code>gofire add endpoint</code>.</p>
 
-      <h2 id="ornek">Örnek api.yaml</h2>
+      <h2 id="example">Example api.yaml</h2>
       <pre><code>version: "1"
 basePath: /api
 
@@ -78,15 +78,15 @@ endpoints:
     handler: GetUsersById
     auth: true</code></pre>
 
-      <h2 id="alanlar">Alanlar</h2>
+      <h2 id="fields">Fields</h2>
       <ul>
-        <li><code>auth: true</code> – Route Firebase Auth middleware ile korunur</li>
-        <li><code>auth: false</code> – Route herkese açıktır</li>
-        <li><code>handler</code> – <code>handlers/</code> dizininde üretilecek fonksiyon adı</li>
+        <li><code>auth: true</code> – Route is protected by Firebase Auth middleware</li>
+        <li><code>auth: false</code> – Route is public</li>
+        <li><code>handler</code> – Function name generated in <code>handlers/</code> directory</li>
       </ul>
 
-      <h2 id="degisiklik-sonrasi">api.yaml değişiklikleri sonrası</h2>
-      <p><code>api.yaml</code>'ı düzenledikten sonra handler'ları ve route'ları yeniden üretmek için:</p>
+      <h2 id="after-changes">After api.yaml changes</h2>
+      <p>After editing <code>api.yaml</code>, regenerate handlers and routes:</p>
       <pre><code>gofire gen</code></pre>
     </main>
   </div>
