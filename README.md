@@ -1,5 +1,10 @@
 # GoFire
 
+[![Go Report Card](https://goreportcard.com/badge/github.com/mustafaaksoy/goFire)](https://goreportcard.com/report/github.com/mustafaaksoy/goFire)
+[![pkg.go.dev](https://pkg.go.dev/badge/github.com/mustafaaksoy/goFire.svg)](https://pkg.go.dev/github.com/mustafaaksoy/goFire)
+[![Go version](https://img.shields.io/github/go-mod/go-version/mustafaaksoy/goFire)](https://github.com/mustafaaksoy/goFire)
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
+
 A Go toolkit for building Firebase-authenticated APIs with code generation and Vercel deployment.
 
 ## Features
@@ -99,6 +104,19 @@ Copy `.env.example` to `.env` and fill in your values:
 ```bash
 cp .env.example .env
 ```
+
+## Setup Questions
+
+`gofire setup` asks the following questions interactively:
+
+| Question | Default | Description |
+|----------|---------|-------------|
+| Server port | `8080` | Local server port |
+| Firebase credentials JSON path | (empty) | Path to service account JSON, e.g. `./service-account.json`. Leave empty to skip auth |
+| Enable Redis cache (Upstash)? | `n` | `y` or `n` |
+| Upstash Redis REST URL | — | Only if Redis enabled, e.g. `https://your-db.upstash.io` |
+| Upstash Redis REST Token | — | Only if Redis enabled |
+| Save configuration to .env file? | `n` | Writes answers to `.env` |
 
 ## Firebase Auth
 
