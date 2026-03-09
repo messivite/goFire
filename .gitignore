@@ -1,6 +1,5 @@
 .env
 service-account*.json
-node_modules/
 /gofire
 tmp/
 .vercel/

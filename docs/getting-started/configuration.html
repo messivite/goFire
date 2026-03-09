@@ -51,6 +51,7 @@
         <a href="#env-vars">Environment variables</a>
         <a href="#env-file">.env file</a>
         <a href="#setup-questions">gofire setup questions</a>
+        <a href="#gofire-yaml">.gofire.yaml</a>
       </div>
     </nav>
     <main class="main">
@@ -86,8 +87,12 @@
           <tr><td>Upstash Redis REST URL</td><td>—</td><td>If Redis enabled, e.g. https://your-db.upstash.io</td></tr>
           <tr><td>Upstash Redis REST Token</td><td>—</td><td>If Redis enabled</td></tr>
           <tr><td>Save configuration to .env?</td><td>n</td><td>Write answers to .env</td></tr>
+          <tr><td>Create .gofire.yaml with custom output paths?</td><td>n</td><td>If y, prompts for server and handlers directories (e.g. pkg/server, pkg/handler)</td></tr>
         </tbody>
       </table>
+
+      <h2 id="gofire-yaml">.gofire.yaml</h2>
+      <p>During <code>gofire setup</code> you can choose to create <code>.gofire.yaml</code> with custom <code>serverDir</code> and <code>handlersDir</code>. Then <code>gofire gen</code> uses these paths without flags. See <a href="../project-structure.html#custom-layouts">Custom layouts</a>.</p>
 
       <footer class="doc-footer">
         <p>Made with ❤️ by <a href="https://www.linkedin.com/in/mustafa-aksoy-87532a385/" target="_blank" rel="noopener">Mustafa Aksoy</a></p>

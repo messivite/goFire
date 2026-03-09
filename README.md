@@ -111,7 +111,7 @@ go build ./...
 
 - **`gofire new`** creates the project directory, runs `go mod init`, adds the goFire dependency, and generates api.yaml, handlers, and server in one go. Use this when you want a ready-to-run API from nothing.
 - **`gofire init`** adds api.yaml and cmd/server/main.go to the current directory. Requires an existing `go.mod` (or you'll get a warning). Run `gofire gen` afterward to generate handlers and server.
-| `gofire setup` | Interactive config (port, Firebase, Redis) and save to `.env` |
+| `gofire setup` | Interactive config (port, Firebase, Redis, optional `.env` and `.gofire.yaml`) |
 | `gofire add endpoint "METHOD /path" [--auth]` | Add an endpoint to `api.yaml` |
 | `gofire gen [--server-dir DIR] [--handlers-dir DIR]` | Generate handler stubs and server routes. Use flags or `api.yaml` output section for custom paths (e.g. `pkg/server`, `pkg/handler`). |
 | `gofire list` | List all endpoints from `api.yaml` |

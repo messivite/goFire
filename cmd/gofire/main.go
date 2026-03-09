@@ -70,24 +70,40 @@ func cmdSetup() {
 	}
 
 	save := prompt(reader, "Save configuration to .env file? (y/n)", "n")
-	if strings.ToLower(save) != "y" && strings.ToLower(save) != "yes" {
+	if strings.ToLower(save) == "y" || strings.ToLower(save) == "yes" {
+		content := fmt.Sprintf("PORT=%s\nFIREBASE_CREDENTIALS_PATH=%s\n",
+			port, firebasePath)
+		if redisURL != "" || redisToken != "" {
+			content += fmt.Sprintf("UPSTASH_REDIS_REST_URL=%s\nUPSTASH_REDIS_REST_TOKEN=%s\n",
+				redisURL, redisToken)
+		}
+		if err := os.WriteFile(".env", []byte(content), 0600); err != nil {
+			fmt.Printf("Error saving .env: %v\n", err)
+			os.Exit(1)
+		}
+		fmt.Println("Configuration saved to .env")
+	} else {
 		fmt.Println("Configuration not saved.")
-		return
 	}
 
-	content := fmt.Sprintf("PORT=%s\nFIREBASE_CREDENTIALS_PATH=%s\n",
-		port, firebasePath)
-	if redisURL != "" || redisToken != "" {
-		content += fmt.Sprintf("UPSTASH_REDIS_REST_URL=%s\nUPSTASH_REDIS_REST_TOKEN=%s\n",
-			redisURL, redisToken)
+	fmt.Println("  .gofire.yaml: defines where gofire gen writes server and handlers. Useful if you use pkg/server, pkg/handler instead of server/, handlers/.")
+	createGoFireYaml := prompt(reader, "Create .gofire.yaml? (y/n)", "n")
+	if strings.ToLower(createGoFireYaml) == "y" || strings.ToLower(createGoFireYaml) == "yes" {
+		serverDir := prompt(reader, "  Server dir (where server.go goes)", "server")
+		handlersDir := prompt(reader, "  Handlers dir (where handler stubs go)", "handlers")
+		cfg := &apiyaml.GoFireConfig{
+			Output: &apiyaml.OutputConfig{
+				ServerDir:   serverDir,
+				HandlersDir: handlersDir,
+			},
+		}
+		gofirePath := apiyaml.GoFireConfigFile
+		if err := apiyaml.SaveGoFireConfig(gofirePath, cfg); err != nil {
+			fmt.Printf("Error saving %s: %v\n", gofirePath, err)
+			os.Exit(1)
+		}
+		fmt.Printf("Created %s (gofire gen will use these paths)\n", gofirePath)
 	}
-
-	if err := os.WriteFile(".env", []byte(content), 0600); err != nil {
-		fmt.Printf("Error saving .env: %v\n", err)
-		os.Exit(1)
-	}
-
-	fmt.Println("Configuration saved to .env")
 }
 
 func prompt(reader *bufio.Reader, label, defaultVal string) string {
