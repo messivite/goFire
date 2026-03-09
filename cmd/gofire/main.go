@@ -48,7 +48,8 @@ Usage:
   gofire init                                   Create api.yaml and cmd/server in existing project
   gofire setup                                  Interactive config (port, Firebase, Redis) and save to .env
   gofire add endpoint "METHOD /path" [--auth]   Add an endpoint
-  gofire gen                                    Generate handlers + server from api.yaml
+  gofire gen [--server-dir DIR] [--handlers-dir DIR]
+                                                Generate handlers + server from api.yaml
   gofire list                                   List all endpoints
   gofire deploy                                 Interactive Vercel deploy`)
 }
@@ -172,7 +173,7 @@ func cmdNew() {
 		fmt.Printf("Error generating handlers: %v\n", err)
 		os.Exit(1)
 	}
-	if err := scaffold.GenerateServer(cfg, filepath.Join(name, "server"), name); err != nil {
+	if err := scaffold.GenerateServer(cfg, filepath.Join(name, "server"), name, "handlers"); err != nil {
 		fmt.Printf("Error generating server: %v\n", err)
 		os.Exit(1)
 	}
@@ -286,14 +287,33 @@ func cmdAdd() {
 func cmdGen() {
 	yamlPath := apiyaml.DefaultFile
 
+	var flagServerDir, flagHandlersDir string
+	for i := 2; i < len(os.Args); i++ {
+		switch os.Args[i] {
+		case "--server-dir":
+			if i+1 < len(os.Args) {
+				flagServerDir = os.Args[i+1]
+				i++
+			}
+		case "--handlers-dir":
+			if i+1 < len(os.Args) {
+				flagHandlersDir = os.Args[i+1]
+				i++
+			}
+		}
+	}
+
 	cfg, err := apiyaml.Load(yamlPath)
 	if err != nil {
 		fmt.Printf("Error loading %s: %v\n", yamlPath, err)
 		os.Exit(1)
 	}
 
+	serverDir := cfg.ResolveServerDir(flagServerDir)
+	handlersDir := cfg.ResolveHandlersDir(flagHandlersDir)
+
 	fmt.Println("Generating handlers...")
-	if err := scaffold.GenerateHandlers(cfg, "handlers"); err != nil {
+	if err := scaffold.GenerateHandlers(cfg, handlersDir); err != nil {
 		fmt.Printf("Error generating handlers: %v\n", err)
 		os.Exit(1)
 	}
@@ -305,7 +325,7 @@ func cmdGen() {
 	}
 
 	fmt.Println("Generating server...")
-	if err := scaffold.GenerateServer(cfg, "server", modulePath); err != nil {
+	if err := scaffold.GenerateServer(cfg, serverDir, modulePath, handlersDir); err != nil {
 		fmt.Printf("Error generating server: %v\n", err)
 		os.Exit(1)
 	}

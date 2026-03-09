@@ -52,6 +52,18 @@ go mod tidy
 go run ./cmd/server
 ```
 
+> **Custom layout (pkg/server, pkg/handler)?** By default `gofire gen` writes to `server/` and `handlers/`. If your project uses `pkg/server` and `pkg/handler`, use:
+> ```bash
+> gofire gen --server-dir pkg/server --handlers-dir pkg/handler
+> ```
+> Or add to `api.yaml`:
+> ```yaml
+> output:
+>   serverDir: pkg/server
+>   handlersDir: pkg/handler
+> ```
+> Then run `gofire gen` as usual. CLI flags override the config.
+
 > **Build errors?** Run `go mod tidy` to fetch transitive dependencies. Run `go run ./cmd/server` from the project root (not `go run .`).
 
 > **Tip:** Or clone this repo as a template: `git clone https://github.com/messivite/goFire.git my-api && cd my-api`
@@ -104,7 +116,7 @@ go build ./...
 - **`gofire init`** adds api.yaml and cmd/server/main.go to the current directory. Requires an existing `go.mod` (or you'll get a warning). Run `gofire gen` afterward to generate handlers and server.
 | `gofire setup` | Interactive config (port, Firebase, Redis) and save to `.env` |
 | `gofire add endpoint "METHOD /path" [--auth]` | Add an endpoint to `api.yaml` |
-| `gofire gen` | Generate handler stubs and server routes from `api.yaml` |
+| `gofire gen [--server-dir DIR] [--handlers-dir DIR]` | Generate handler stubs and server routes. Use flags or `api.yaml` output section for custom paths (e.g. `pkg/server`, `pkg/handler`). |
 | `gofire list` | List all endpoints from `api.yaml` |
 | `gofire deploy` | Interactive Vercel deploy (preview or production) |
 
@@ -138,6 +150,13 @@ endpoints:
 - `auth: true` – route is protected by Firebase Auth middleware
 - `auth: false` – route is public
 - `handler` – generated function name in `handlers/` directory
+- `output` (optional) – custom paths for `gofire gen` when using layouts like `pkg/server`, `pkg/handler`:
+
+```yaml
+output:
+  serverDir: pkg/server
+  handlersDir: pkg/handler
+```
 
 After editing `api.yaml`, run `gofire gen` to regenerate code.
 

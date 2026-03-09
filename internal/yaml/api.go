@@ -17,10 +17,38 @@ type Endpoint struct {
 	Auth    bool   `yaml:"auth"`
 }
 
+type OutputConfig struct {
+	ServerDir   string `yaml:"serverDir,omitempty"`
+	HandlersDir string `yaml:"handlersDir,omitempty"`
+}
+
 type APIConfig struct {
-	Version   string     `yaml:"version"`
-	BasePath  string     `yaml:"basePath"`
-	Endpoints []Endpoint `yaml:"endpoints"`
+	Version   string        `yaml:"version"`
+	BasePath  string        `yaml:"basePath"`
+	Endpoints []Endpoint    `yaml:"endpoints"`
+	Output    *OutputConfig `yaml:"output,omitempty"`
+}
+
+// ResolveServerDir returns the configured server directory or the default.
+func (c *APIConfig) ResolveServerDir(flagVal string) string {
+	if flagVal != "" {
+		return flagVal
+	}
+	if c.Output != nil && c.Output.ServerDir != "" {
+		return c.Output.ServerDir
+	}
+	return "server"
+}
+
+// ResolveHandlersDir returns the configured handlers directory or the default.
+func (c *APIConfig) ResolveHandlersDir(flagVal string) string {
+	if flagVal != "" {
+		return flagVal
+	}
+	if c.Output != nil && c.Output.HandlersDir != "" {
+		return c.Output.HandlersDir
+	}
+	return "handlers"
 }
 
 // Load reads and parses the api.yaml file.
