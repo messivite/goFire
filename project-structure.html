@@ -79,13 +79,11 @@
 └── go.mod</code></pre>
 
       <h2 id="custom-layouts">Custom layouts</h2>
-      <p>Projects using <code>pkg/server</code> and <code>pkg/handler</code> (or other paths) can configure <code>gofire gen</code> output:</p>
-      <pre><code>gofire gen --server-dir pkg/server --handlers-dir pkg/handler</code></pre>
-      <p>Or add to <code>api.yaml</code>:</p>
+      <p>Add to <code>.gofire.yaml</code> (project root) or <code>api.yaml</code>. Then <code>gofire gen</code> uses these paths without flags:</p>
       <pre><code>output:
   serverDir: pkg/server
   handlersDir: pkg/handler</code></pre>
-      <p>See <a href="cli/reference.html#custom-output-paths">CLI reference</a> and <a href="guides/api-yaml.html#output">api.yaml output</a>.</p>
+      <p>Resolution: CLI flags &gt; <code>.gofire.yaml</code> &gt; <code>api.yaml</code> output &gt; default. See <a href="cli/reference.html#custom-output-paths">CLI reference</a>.</p>
 
       <footer class="doc-footer">
         <p>Made with ❤️ by <a href="https://www.linkedin.com/in/mustafa-aksoy-87532a385/" target="_blank" rel="noopener">Mustafa Aksoy</a></p>

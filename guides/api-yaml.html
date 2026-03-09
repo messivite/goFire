@@ -92,11 +92,11 @@ endpoints:
       </ul>
 
       <h2 id="output">Output paths</h2>
-      <p>Use the optional <code>output</code> section when your project uses a different layout (e.g. <code>pkg/server</code>, <code>pkg/handler</code> instead of <code>server/</code> and <code>handlers/</code>):</p>
+      <p>Use the optional <code>output</code> section when your project uses a different layout (e.g. <code>pkg/server</code>, <code>pkg/handler</code>). You can put it in <code>api.yaml</code> or in <code>.gofire.yaml</code> at project root:</p>
       <pre><code>output:
   serverDir: pkg/server
   handlersDir: pkg/handler</code></pre>
-      <p>Then <code>gofire gen</code> will write generated files to these paths. CLI flags <code>--server-dir</code> and <code>--handlers-dir</code> override this config.</p>
+      <p>Resolution: CLI flags &gt; <code>.gofire.yaml</code> &gt; <code>api.yaml</code> output &gt; default. Then <code>gofire gen</code> uses these paths without flags.</p>
 
       <h2 id="after-changes">After api.yaml changes</h2>
       <p>After editing <code>api.yaml</code>, regenerate handlers and routes:</p>
