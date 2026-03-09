@@ -54,6 +54,15 @@ func LoadGoFireConfig(path string) (*GoFireConfig, error) {
 	return &cfg, nil
 }
 
+// SaveGoFireConfig writes the GoFireConfig to the given path (e.g. .gofire.yaml).
+func SaveGoFireConfig(path string, cfg *GoFireConfig) error {
+	data, err := yaml.Marshal(cfg)
+	if err != nil {
+		return fmt.Errorf("marshaling config: %w", err)
+	}
+	return os.WriteFile(path, data, 0644)
+}
+
 // ResolveServerDir returns server directory. Priority: flag > .gofire.yaml > api.yaml output > default.
 func ResolveServerDir(apiOutput, gofireOutput *OutputConfig, flagVal string) string {
 	if flagVal != "" {

@@ -65,7 +65,7 @@
         <tbody>
           <tr><td><code>gofire new &lt;name&gt;</code></td><td>Create new project from scratch (directory, go.mod, api.yaml, handlers, server). Use when starting with no project.</td></tr>
           <tr><td><code>gofire init</code></td><td>Create api.yaml and cmd/server/main.go in existing project. Use when you already have go.mod.</td></tr>
-          <tr><td><code>gofire setup</code></td><td>Interactive config (port, Firebase, Redis) and save to .env</td></tr>
+          <tr><td><code>gofire setup</code></td><td>Interactive config (port, Firebase, Redis). Optionally save to .env and create .gofire.yaml with output paths.</td></tr>
           <tr><td><code>gofire add endpoint "METHOD /path" [--auth]</code></td><td>Add endpoint to api.yaml</td></tr>
           <tr><td><code>gofire gen [--server-dir DIR] [--handlers-dir DIR]</code></td><td>Generate handler stubs and server routes. Use flags for custom paths (e.g. <code>pkg/server</code>, <code>pkg/handler</code>).</td></tr>
           <tr><td><code>gofire list</code></td><td>List all endpoints from api.yaml</td></tr>
