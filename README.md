@@ -24,39 +24,32 @@ A Go toolkit for building Firebase-authenticated APIs with code generation and V
 
 ## Quick Start
 
+**Option A — Create from scratch** (single command):
+
 ```bash
-# Install the CLI
 go install github.com/messivite/goFire/cmd/gofire@latest
+gofire new my-api
+cd my-api
+go mod tidy
+go run ./cmd/server
+```
 
-# If "command not found": export PATH=$PATH:$(go env GOPATH)/bin
+**Option B — Existing project** (manual setup):
 
-# Create project and add dependency
+```bash
 mkdir my-api && cd my-api
 go mod init my-api
 go get github.com/messivite/goFire
-
-# Initialize api.yaml
 gofire init
-
-# Configure (interactive: port, Firebase, Redis)
 gofire setup
-
-# Add endpoints
 gofire add endpoint "GET /users"
 gofire add endpoint "POST /users --auth"
-gofire add endpoint "GET /users/:id --auth"
-
-# Generate handlers and server
 gofire gen
-
-# Fetch dependencies and run
 go mod tidy
 go run ./cmd/server
 ```
 
 > **Build errors?** Run `go mod tidy` to fetch transitive dependencies. Run `go run ./cmd/server` from the project root (not `go run .`).
-
-`gofire init` creates both `api.yaml` and `cmd/server/main.go`. After `gofire gen`, run the server with `go run ./cmd/server`.
 
 > **Tip:** Or clone this repo as a template: `git clone https://github.com/messivite/goFire.git my-api && cd my-api`
 
@@ -90,7 +83,18 @@ go build ./...
 
 | Command | Description |
 |---------|-------------|
-| `gofire init` | Create `api.yaml` and `cmd/server/main.go` with default health endpoints |
+| `gofire new &lt;name&gt;` | Create new project from scratch (directory, go.mod, api.yaml, handlers, server) |
+| `gofire init` | Create `api.yaml` and `cmd/server/main.go` in existing project |
+
+### new vs init — when to use which?
+
+| Scenario | Command |
+|----------|---------|
+| **Starting from scratch** — you have no project yet | `gofire new my-api` |
+| **Existing project** — you already have `go.mod` or an existing Go project | `gofire init` |
+
+- **`gofire new`** creates the project directory, runs `go mod init`, adds the goFire dependency, and generates api.yaml, handlers, and server in one go. Use this when you want a ready-to-run API from nothing.
+- **`gofire init`** adds api.yaml and cmd/server/main.go to the current directory. Requires an existing `go.mod` (or you'll get a warning). Run `gofire gen` afterward to generate handlers and server.
 | `gofire setup` | Interactive config (port, Firebase, Redis) and save to `.env` |
 | `gofire add endpoint "METHOD /path" [--auth]` | Add an endpoint to `api.yaml` |
 | `gofire gen` | Generate handler stubs and server routes from `api.yaml` |

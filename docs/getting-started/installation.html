@@ -1,79 +1,79 @@
 <!DOCTYPE html>
-<html lang="tr">
+<html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Kurulum - GoFire</title>
+  <title>Installation - GoFire</title>
   <link rel="stylesheet" href="../css/style.css">
 </head>
 <body>
   <header class="header">
     <a href="../index.html" class="header-logo">GoFire</a>
     <nav class="header-nav">
-      <a href="../index.html">Ana Sayfa</a>
-      <a href="installation.html" class="header-link-active">Kurulum</a>
-      <a href="quick-start.html">Hızlı Başlangıç</a>
+      <a href="../index.html">Home</a>
+      <a href="installation.html" class="header-link-active">Installation</a>
+      <a href="quick-start.html">Quick Start</a>
       <a href="../guides/api-yaml.html">api.yaml</a>
       <a href="../cli/reference.html">CLI</a>
       <a href="https://github.com/messivite/goFire" class="header-github" target="_blank" rel="noopener">GitHub</a>
     </nav>
   </header>
-  <button class="mobile-toggle" onclick="document.querySelector('.sidebar').classList.toggle('open')">Menü</button>
+  <button class="mobile-toggle" onclick="document.querySelector('.sidebar').classList.toggle('open')">Menu</button>
   <div class="layout">
     <nav class="sidebar">
       <div class="logo"><a href="../index.html">GoFire</a></div>
       <div class="nav-section">
-        <div class="nav-section-title">Başlarken</div>
-        <a href="../index.html">Genel Bakış</a>
-        <a href="installation.html" class="active">GoFire'ı Yükle</a>
-        <a href="quick-start.html">İlk Projeyi Oluştur</a>
-        <a href="configuration.html">Ortam Değişkenleri</a>
+        <div class="nav-section-title">Getting Started</div>
+        <a href="../index.html">Overview</a>
+        <a href="installation.html" class="active">Install GoFire</a>
+        <a href="quick-start.html">Create First Project</a>
+        <a href="configuration.html">Environment Variables</a>
       </div>
       <div class="nav-section">
-        <div class="nav-section-title">Rehberler</div>
-        <a href="../guides/api-yaml.html">Endpoint Tanımlama</a>
-        <a href="../guides/firebase-auth.html">Kimlik Doğrulama</a>
-        <a href="../guides/upstash-redis.html">Önbellek (Redis)</a>
-        <a href="../guides/vercel-deploy.html">Sunucuya Yükleme</a>
+        <div class="nav-section-title">Guides</div>
+        <a href="../guides/api-yaml.html">Endpoint Definitions</a>
+        <a href="../guides/firebase-auth.html">Authentication</a>
+        <a href="../guides/upstash-redis.html">Redis Cache</a>
+        <a href="../guides/vercel-deploy.html">Vercel Deployment</a>
       </div>
       <div class="nav-section">
-        <div class="nav-section-title">Referans</div>
-        <a href="../cli/reference.html">Tüm CLI Komutları</a>
-        <a href="../project-structure.html">Proje Dizin Yapısı</a>
+        <div class="nav-section-title">Reference</div>
+        <a href="../cli/reference.html">CLI Commands</a>
+        <a href="../project-structure.html">Project Structure</a>
       </div>
       <div class="toc">
-        <div class="toc-title">Bu sayfada</div>
-        <a href="#go-modulu">Go modülü olarak</a>
-        <a href="#cli">CLI olarak</a>
-        <a href="#gereksinimler">Gereksinimler</a>
+        <div class="toc-title">On this page</div>
+        <a href="#go-module">As Go module</a>
+        <a href="#cli">As CLI</a>
+        <a href="#requirements">Requirements</a>
       </div>
     </nav>
     <main class="main">
-      <h1>Kurulum</h1>
-      <p class="lead">GoFire'ı Go modülü olarak kullanabilir veya CLI aracını global olarak yükleyebilirsiniz.</p>
+      <h1>Installation</h1>
+      <p class="lead">Use GoFire as a Go module or install the CLI globally.</p>
 
-      <h2 id="go-modulu">Go modülü olarak</h2>
-      <p>Yeni projede önce <code>go mod init</code> çalıştırın, ardından:</p>
+      <h2 id="go-module">As Go module</h2>
+      <p>In a new project, run <code>go mod init</code> first, then:</p>
       <pre><code>go get github.com/messivite/goFire</code></pre>
 
-      <h2 id="cli">CLI olarak</h2>
-      <p>GoFire CLI'yı yüklemek için:</p>
+      <h2 id="cli">As CLI</h2>
+      <p>To install the GoFire CLI:</p>
       <pre><code>go install github.com/messivite/goFire/cmd/gofire@latest</code></pre>
-      <p>Kurulumdan sonra <code>gofire</code> komutunu terminalde kullanabilirsiniz. <code>PATH</code> içinde <code>$GOPATH/bin</code> veya <code>$HOME/go/bin</code> olmalıdır.</p>
+      <p>After installation you can run <code>gofire</code> in the terminal. Ensure <code>$GOPATH/bin</code> or <code>$HOME/go/bin</code> is in your <code>PATH</code>.</p>
 
       <div class="callout">
         <p><strong>command not found?</strong> Add Go's bin directory to PATH: <code>export PATH=$PATH:$(go env GOPATH)/bin</code> — or run with full path: <code>$(go env GOPATH)/bin/gofire init</code></p>
       </div>
 
       <div class="callout">
-        <p><strong>missing go.sum?</strong> <code>go mod tidy</code> çalıştırın. <strong>not a main package?</strong> Proje kökünden <code>go run ./cmd/server</code> kullanın.</p>
+        <p><strong>missing go.sum?</strong> Run <code>go mod tidy</code>. <strong>not a main package?</strong> Use <code>go run ./cmd/server</code> from the project root.</p>
       </div>
 
-      <h2 id="gereksinimler">Gereksinimler</h2>
+      <h2 id="requirements">Requirements</h2>
       <ul>
         <li>Go 1.19+</li>
-        <li>Firebase projesi (opsiyonel, auth için)</li>
-        <li>Upstash Redis hesabı (opsiyonel, cache için)</li>
+        <li>Firebase project (optional, for auth)</li>
+        <li>Upstash Redis account (optional, for cache)</li>
       </ul>
     </main>
   </div>

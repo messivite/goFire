@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="tr">
+<html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,60 +10,60 @@
   <header class="header">
     <a href="../index.html" class="header-logo">GoFire</a>
     <nav class="header-nav">
-      <a href="../index.html">Ana Sayfa</a>
-      <a href="../getting-started/installation.html">Kurulum</a>
-      <a href="../getting-started/quick-start.html">Hızlı Başlangıç</a>
+      <a href="../index.html">Home</a>
+      <a href="../getting-started/installation.html">Installation</a>
+      <a href="../getting-started/quick-start.html">Quick Start</a>
       <a href="api-yaml.html">api.yaml</a>
       <a href="../cli/reference.html">CLI</a>
       <a href="https://github.com/messivite/goFire" class="header-github" target="_blank" rel="noopener">GitHub</a>
     </nav>
   </header>
-  <button class="mobile-toggle" onclick="document.querySelector('.sidebar').classList.toggle('open')">Menü</button>
+  <button class="mobile-toggle" onclick="document.querySelector('.sidebar').classList.toggle('open')">Menu</button>
   <div class="layout">
     <nav class="sidebar">
       <div class="logo"><a href="../index.html">GoFire</a></div>
       <div class="nav-section">
-        <div class="nav-section-title">Başlarken</div>
-        <a href="../index.html">Genel Bakış</a>
-        <a href="../getting-started/installation.html">GoFire'ı Yükle</a>
-        <a href="../getting-started/quick-start.html">İlk Projeyi Oluştur</a>
-        <a href="../getting-started/configuration.html">Ortam Değişkenleri</a>
+        <div class="nav-section-title">Getting Started</div>
+        <a href="../index.html">Overview</a>
+        <a href="../getting-started/installation.html">Install GoFire</a>
+        <a href="../getting-started/quick-start.html">Create First Project</a>
+        <a href="../getting-started/configuration.html">Environment Variables</a>
       </div>
       <div class="nav-section">
-        <div class="nav-section-title">Rehberler</div>
-        <a href="api-yaml.html">Endpoint Tanımlama</a>
-        <a href="firebase-auth.html">Kimlik Doğrulama</a>
-        <a href="upstash-redis.html" class="active">Önbellek (Redis)</a>
-        <a href="vercel-deploy.html">Sunucuya Yükleme</a>
+        <div class="nav-section-title">Guides</div>
+        <a href="api-yaml.html">Endpoint Definitions</a>
+        <a href="firebase-auth.html">Authentication</a>
+        <a href="upstash-redis.html" class="active">Redis Cache</a>
+        <a href="vercel-deploy.html">Vercel Deployment</a>
       </div>
       <div class="nav-section">
-        <div class="nav-section-title">Referans</div>
-        <a href="../cli/reference.html">Tüm CLI Komutları</a>
-        <a href="../project-structure.html">Proje Dizin Yapısı</a>
+        <div class="nav-section-title">Reference</div>
+        <a href="../cli/reference.html">CLI Commands</a>
+        <a href="../project-structure.html">Project Structure</a>
       </div>
       <div class="toc">
-        <div class="toc-title">Bu sayfada</div>
-        <a href="#kullanim">Kullanım</a>
-        <a href="#ortam-degiskenleri">Ortam değişkenleri</a>
+        <div class="toc-title">On this page</div>
+        <a href="#usage">Usage</a>
+        <a href="#env-vars">Environment variables</a>
       </div>
     </nav>
     <main class="main">
       <h1>Upstash Redis</h1>
-      <p><code>gofire setup</code> sırasında Redis cache'i etkinleştirirseniz, <code>cfg.RedisEnabled</code> true olur ve cache paketini kullanabilirsiniz.</p>
+      <p>If you enable Redis cache during <code>gofire setup</code>, <code>cfg.RedisEnabled</code> becomes true and you can use the cache package.</p>
 
-      <h2 id="kullanim">Kullanım</h2>
+      <h2 id="usage">Usage</h2>
       <pre><code>import "github.com/messivite/goFire/cache"
 
 if cfg.RedisEnabled {
     c, _ := cache.NewUpstashCache(cfg.UpstashRedisRestURL, cfg.UpstashRedisRestToken, "myapp:")
-    // Handler veya servislere inject edin
+    // Inject into handlers or services
 }
 
-// Handler'da: c.Get(ctx, key), c.SetAsync(ctx, key, data, ttlSeconds)</code></pre>
+// In handler: c.Get(ctx, key), c.SetAsync(ctx, key, data, ttlSeconds)</code></pre>
 
-      <h2 id="ortam-degiskenleri">Ortam değişkenleri</h2>
+      <h2 id="env-vars">Environment variables</h2>
       <ul>
-        <li><code>UPSTASH_REDIS_REST_URL</code> – örn. https://your-db.upstash.io</li>
+        <li><code>UPSTASH_REDIS_REST_URL</code> – e.g. https://your-db.upstash.io</li>
         <li><code>UPSTASH_REDIS_REST_TOKEN</code></li>
       </ul>
     </main>

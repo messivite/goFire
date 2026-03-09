@@ -1,114 +1,114 @@
 <!DOCTYPE html>
-<html lang="tr">
+<html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>GoFire - Dokümantasyon</title>
+  <title>GoFire - Documentation</title>
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
   <header class="header">
     <a href="index.html" class="header-logo">GoFire</a>
     <nav class="header-nav">
-      <a href="index.html" class="header-link-active">Ana Sayfa</a>
-      <a href="getting-started/installation.html">Kurulum</a>
-      <a href="getting-started/quick-start.html">Hızlı Başlangıç</a>
+      <a href="index.html" class="header-link-active">Home</a>
+      <a href="getting-started/installation.html">Installation</a>
+      <a href="getting-started/quick-start.html">Quick Start</a>
       <a href="guides/api-yaml.html">api.yaml</a>
       <a href="cli/reference.html">CLI</a>
       <a href="https://github.com/messivite/goFire" class="header-github" target="_blank" rel="noopener">GitHub</a>
     </nav>
   </header>
-  <button class="mobile-toggle" onclick="document.querySelector('.sidebar').classList.toggle('open')">Menü</button>
+  <button class="mobile-toggle" onclick="document.querySelector('.sidebar').classList.toggle('open')">Menu</button>
   <div class="layout">
     <nav class="sidebar">
       <div class="logo"><a href="index.html">GoFire</a></div>
       <div class="nav-section">
-        <div class="nav-section-title">Başlarken</div>
-        <a href="index.html" class="active">Genel Bakış</a>
-        <a href="getting-started/installation.html">Kurulum</a>
-        <a href="getting-started/quick-start.html">İlk Proje</a>
-        <a href="getting-started/configuration.html">Yapılandırma</a>
+        <div class="nav-section-title">Getting Started</div>
+        <a href="index.html" class="active">Overview</a>
+        <a href="getting-started/installation.html">Installation</a>
+        <a href="getting-started/quick-start.html">Create First Project</a>
+        <a href="getting-started/configuration.html">Environment Variables</a>
       </div>
       <div class="nav-section">
-        <div class="nav-section-title">Rehberler</div>
-        <a href="guides/api-yaml.html">Endpoint Tanımlama</a>
-        <a href="guides/firebase-auth.html">Kimlik Doğrulama</a>
-        <a href="guides/upstash-redis.html">Redis Önbellek</a>
+        <div class="nav-section-title">Guides</div>
+        <a href="guides/api-yaml.html">Endpoint Definitions</a>
+        <a href="guides/firebase-auth.html">Authentication</a>
+        <a href="guides/upstash-redis.html">Redis Cache</a>
         <a href="guides/vercel-deploy.html">Vercel Deployment</a>
       </div>
       <div class="nav-section">
-        <div class="nav-section-title">Referans</div>
-        <a href="cli/reference.html">CLI Komutları</a>
-        <a href="project-structure.html">Proje Yapısı</a>
+        <div class="nav-section-title">Reference</div>
+        <a href="cli/reference.html">CLI Commands</a>
+        <a href="project-structure.html">Project Structure</a>
       </div>
       <div class="toc">
-        <div class="toc-title">Bu sayfada</div>
-        <a href="#ozellikler">Özellikler</a>
-        <a href="#hizli-baslangic">Hızlı Başlangıç</a>
-        <a href="#nasil-calisir">Nasıl Çalışır</a>
+        <div class="toc-title">On this page</div>
+        <a href="#features">Features</a>
+        <a href="#quick-start">Quick Start</a>
+        <a href="#how-it-works">How It Works</a>
       </div>
     </nav>
     <main class="main">
       <h1>GoFire</h1>
-      <p class="lead">Firebase ile kimlik doğrulamalı API'ler oluşturmak için Go toolkit'i. YAML ile endpoint tanımla, handler'ları otomatik üret, tek komutla Vercel'e deploy et.</p>
+      <p class="lead">Go toolkit for building Firebase-authenticated APIs. Define endpoints in YAML, auto-generate handlers, deploy to Vercel with one command.</p>
 
       <div class="card-grid">
         <a href="getting-started/installation.html" class="card">
-          <strong>Kurulum</strong>
-          <span>CLI'yı yükle ve ilk projeyi oluştur</span>
+          <strong>Installation</strong>
+          <span>Install CLI and create your first project</span>
         </a>
         <a href="guides/api-yaml.html" class="card">
           <strong>api.yaml</strong>
-          <span>Endpoint'leri YAML ile tanımla</span>
+          <span>Define endpoints in YAML</span>
         </a>
         <a href="guides/firebase-auth.html" class="card">
           <strong>Firebase Auth</strong>
-          <span>Bearer token ile koruma</span>
+          <span>Bearer token protection</span>
         </a>
         <a href="guides/vercel-deploy.html" class="card">
           <strong>Deploy</strong>
-          <span>Vercel'e tek komutla yükle</span>
+          <span>One-command deploy to Vercel</span>
         </a>
       </div>
 
-      <h2 id="ozellikler">Özellikler</h2>
+      <h2 id="features">Features</h2>
       <ul>
-        <li><strong>Firebase Auth middleware</strong> – Bearer token doğrulama (dosya veya JSON credentials)</li>
-        <li><strong>api.yaml</strong> – Endpoint'leri YAML ile tanımla, Go handler ve route'lar otomatik üretilir</li>
+        <li><strong>Firebase Auth middleware</strong> – Bearer token verification (file path or JSON credentials)</li>
+        <li><strong>api.yaml</strong> – Define endpoints in YAML, Go handlers and routes are auto-generated</li>
         <li><strong>CLI</strong> – <code>gofire add</code>, <code>gofire gen</code>, <code>gofire list</code>, <code>gofire deploy</code></li>
-        <li><strong>Vercel-ready</strong> – Tek komutla serverless deployment</li>
-        <li><strong>Chi router</strong> – Hafif, idiomatik Go HTTP routing</li>
+        <li><strong>Vercel-ready</strong> – One-command serverless deployment</li>
+        <li><strong>Chi router</strong> – Lightweight, idiomatic Go HTTP routing</li>
       </ul>
 
-      <h2 id="hizli-baslangic">Hızlı Başlangıç</h2>
-      <pre><code># CLI'yı yükle
+      <h2 id="quick-start">Quick Start</h2>
+      <pre><code># Install CLI
 go install github.com/messivite/goFire/cmd/gofire@latest
 
-# Proje oluştur
-mkdir my-api && cd my-api
-go mod init my-api
-go get github.com/messivite/goFire
-gofire init
-gofire setup
-
-# Endpoint ekle ve kod üret
-gofire add endpoint "GET /users"
+# Create new project (from scratch)
+gofire new my-api
+cd my-api
+go mod tidy
+go run ./cmd/server</code></pre>
+      <p>Or add endpoints and regenerate:</p>
+      <pre><code>gofire add endpoint "GET /users"
 gofire add endpoint "POST /users --auth"
 gofire gen
 go mod tidy
 
 go run ./cmd/server</code></pre>
 
-      <p><a href="getting-started/quick-start.html" class="cta">Detaylı rehbere git →</a></p>
+      <p><strong>new vs init:</strong> Use <code>gofire new</code> when starting from scratch (creates everything). Use <code>gofire init</code> when you already have a Go project with <code>go.mod</code>.</p>
 
-      <h2 id="nasil-calisir">Nasıl Çalışır?</h2>
+      <p><a href="getting-started/quick-start.html" class="cta">Full guide →</a></p>
+
+      <h2 id="how-it-works">How It Works</h2>
       <div class="callout">
-        <p><strong>akış:</strong> <code>api.yaml</code> → <code>gofire gen</code> → handler'lar + server üretilir → <code>go run</code> veya <code>gofire deploy</code></p>
+        <p><strong>Flow:</strong> <code>api.yaml</code> → <code>gofire gen</code> → handlers + server generated → <code>go run</code> or <code>gofire deploy</code></p>
       </div>
       <pre><code>api.yaml  ──→  gofire gen  ──→  handlers/*.go + server/server.go
                                        │
                              go run ./cmd/server
-                                  veya
+                                  or
                              gofire deploy (Vercel)</code></pre>
     </main>
   </div>

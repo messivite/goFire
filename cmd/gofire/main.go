@@ -25,6 +25,8 @@ func main() {
 		cmdGen()
 	case "list":
 		cmdList()
+	case "new":
+		cmdNew()
 	case "deploy":
 		cmdDeploy()
 	case "init":
@@ -42,12 +44,13 @@ func printUsage() {
 	fmt.Println(`GoFire CLI
 
 Usage:
-  gofire init                                  Create default api.yaml and project files
-  gofire setup                                 Interactive config (port, Firebase, Redis) and save to .env
-  gofire add endpoint "METHOD /path" [--auth]  Add an endpoint
-  gofire gen                                   Generate handlers + server from api.yaml
-  gofire list                                  List all endpoints
-  gofire deploy                                Interactive Vercel deploy`)
+  gofire new <name>                             Create new project from scratch
+  gofire init                                   Create api.yaml and cmd/server in existing project
+  gofire setup                                  Interactive config (port, Firebase, Redis) and save to .env
+  gofire add endpoint "METHOD /path" [--auth]   Add an endpoint
+  gofire gen                                    Generate handlers + server from api.yaml
+  gofire list                                   List all endpoints
+  gofire deploy                                 Interactive Vercel deploy`)
 }
 
 // --- setup ---
@@ -98,6 +101,92 @@ func prompt(reader *bufio.Reader, label, defaultVal string) string {
 		return defaultVal
 	}
 	return input
+}
+
+// --- new ---
+
+func cmdNew() {
+	if len(os.Args) < 3 {
+		fmt.Println("Usage: gofire new <project-name>")
+		fmt.Println("Example: gofire new my-api")
+		os.Exit(1)
+	}
+	name := strings.TrimSpace(os.Args[2])
+	if name == "" {
+		fmt.Println("Project name cannot be empty.")
+		os.Exit(1)
+	}
+	if strings.ContainsAny(name, `/\:*?"<>|`) {
+		fmt.Println("Project name contains invalid characters.")
+		os.Exit(1)
+	}
+
+	if _, err := os.Stat(name); err == nil {
+		fmt.Printf("Directory %q already exists. Choose a different name or remove it.\n", name)
+		os.Exit(1)
+	}
+
+	if err := os.MkdirAll(name, 0755); err != nil {
+		fmt.Printf("Error creating directory: %v\n", err)
+		os.Exit(1)
+	}
+
+	fmt.Printf("Creating project %q...\n", name)
+
+	// go mod init
+	cmd := exec.Command("go", "mod", "init", name)
+	cmd.Dir = name
+	cmd.Stdout = os.Stdout
+	cmd.Stderr = os.Stderr
+	if err := cmd.Run(); err != nil {
+		fmt.Printf("Error running go mod init: %v\n", err)
+		os.Exit(1)
+	}
+
+	// go get goFire
+	cmd = exec.Command("go", "get", "github.com/messivite/goFire")
+	cmd.Dir = name
+	cmd.Stdout = os.Stdout
+	cmd.Stderr = os.Stderr
+	if err := cmd.Run(); err != nil {
+		fmt.Printf("Error running go get: %v\n", err)
+		os.Exit(1)
+	}
+
+	// api.yaml
+	cfg := apiyaml.DefaultConfig()
+	yamlPath := filepath.Join(name, apiyaml.DefaultFile)
+	if err := apiyaml.Save(yamlPath, cfg); err != nil {
+		fmt.Printf("Error creating api.yaml: %v\n", err)
+		os.Exit(1)
+	}
+
+	// cmd/server/main.go
+	if err := scaffold.GenerateCmdServer(filepath.Join(name, "cmd", "server", "main.go"), name); err != nil {
+		fmt.Printf("Error creating main.go: %v\n", err)
+		os.Exit(1)
+	}
+
+	// handlers + server
+	if err := scaffold.GenerateHandlers(cfg, filepath.Join(name, "handlers")); err != nil {
+		fmt.Printf("Error generating handlers: %v\n", err)
+		os.Exit(1)
+	}
+	if err := scaffold.GenerateServer(cfg, filepath.Join(name, "server"), name); err != nil {
+		fmt.Printf("Error generating server: %v\n", err)
+		os.Exit(1)
+	}
+
+	// .gitignore
+	gitignore := ".env\nservice-account*.json\n"
+	if err := os.WriteFile(filepath.Join(name, ".gitignore"), []byte(gitignore), 0644); err != nil {
+		// non-fatal
+	}
+
+	fmt.Printf("\nCreated project %q.\n", name)
+	fmt.Printf("  cd %s\n", name)
+	fmt.Println("  go mod tidy")
+	fmt.Println("  go run ./cmd/server")
 }
 
 // --- init ---

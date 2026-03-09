@@ -1,86 +1,86 @@
 <!DOCTYPE html>
-<html lang="tr">
+<html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Yapılandırma - GoFire</title>
+  <title>Configuration - GoFire</title>
   <link rel="stylesheet" href="../css/style.css">
 </head>
 <body>
   <header class="header">
     <a href="../index.html" class="header-logo">GoFire</a>
     <nav class="header-nav">
-      <a href="../index.html">Ana Sayfa</a>
-      <a href="installation.html">Kurulum</a>
-      <a href="quick-start.html">Hızlı Başlangıç</a>
+      <a href="../index.html">Home</a>
+      <a href="installation.html">Installation</a>
+      <a href="quick-start.html">Quick Start</a>
       <a href="../guides/api-yaml.html">api.yaml</a>
       <a href="../cli/reference.html">CLI</a>
       <a href="https://github.com/messivite/goFire" class="header-github" target="_blank" rel="noopener">GitHub</a>
     </nav>
   </header>
-  <button class="mobile-toggle" onclick="document.querySelector('.sidebar').classList.toggle('open')">Menü</button>
+  <button class="mobile-toggle" onclick="document.querySelector('.sidebar').classList.toggle('open')">Menu</button>
   <div class="layout">
     <nav class="sidebar">
       <div class="logo"><a href="../index.html">GoFire</a></div>
       <div class="nav-section">
-        <div class="nav-section-title">Başlarken</div>
-        <a href="../index.html">Genel Bakış</a>
-        <a href="installation.html">GoFire'ı Yükle</a>
-        <a href="quick-start.html">İlk Projeyi Oluştur</a>
-        <a href="configuration.html" class="active">Ortam Değişkenleri</a>
+        <div class="nav-section-title">Getting Started</div>
+        <a href="../index.html">Overview</a>
+        <a href="installation.html">Install GoFire</a>
+        <a href="quick-start.html">Create First Project</a>
+        <a href="configuration.html" class="active">Environment Variables</a>
       </div>
       <div class="nav-section">
-        <div class="nav-section-title">Rehberler</div>
-        <a href="../guides/api-yaml.html">Endpoint Tanımlama</a>
-        <a href="../guides/firebase-auth.html">Kimlik Doğrulama</a>
-        <a href="../guides/upstash-redis.html">Önbellek (Redis)</a>
-        <a href="../guides/vercel-deploy.html">Sunucuya Yükleme</a>
+        <div class="nav-section-title">Guides</div>
+        <a href="../guides/api-yaml.html">Endpoint Definitions</a>
+        <a href="../guides/firebase-auth.html">Authentication</a>
+        <a href="../guides/upstash-redis.html">Redis Cache</a>
+        <a href="../guides/vercel-deploy.html">Vercel Deployment</a>
       </div>
       <div class="nav-section">
-        <div class="nav-section-title">Referans</div>
-        <a href="../cli/reference.html">Tüm CLI Komutları</a>
-        <a href="../project-structure.html">Proje Dizin Yapısı</a>
+        <div class="nav-section-title">Reference</div>
+        <a href="../cli/reference.html">CLI Commands</a>
+        <a href="../project-structure.html">Project Structure</a>
       </div>
       <div class="toc">
-        <div class="toc-title">Bu sayfada</div>
-        <a href="#ortam-degiskenleri">Ortam Değişkenleri</a>
-        <a href="#env-dosyasi">.env dosyası</a>
-        <a href="#setup-sorulari">gofire setup soruları</a>
+        <div class="toc-title">On this page</div>
+        <a href="#env-vars">Environment variables</a>
+        <a href="#env-file">.env file</a>
+        <a href="#setup-questions">gofire setup questions</a>
       </div>
     </nav>
     <main class="main">
-      <h1>Yapılandırma</h1>
+      <h1>Configuration</h1>
 
-      <h2 id="ortam-degiskenleri">Ortam Değişkenleri</h2>
+      <h2 id="env-vars">Environment variables</h2>
       <table>
         <thead>
-          <tr><th>Değişken</th><th>Gerekli</th><th>Açıklama</th></tr>
+          <tr><th>Variable</th><th>Required</th><th>Description</th></tr>
         </thead>
         <tbody>
-          <tr><td><code>PORT</code></td><td>Hayır</td><td>Sunucu portu (varsayılan: 8080)</td></tr>
-          <tr><td><code>FIREBASE_CREDENTIALS_PATH</code></td><td>Hayır</td><td>Firebase service account JSON dosya yolu (yerel)</td></tr>
-          <tr><td><code>FIREBASE_CREDENTIALS_JSON</code></td><td>Hayır</td><td>Firebase credentials JSON string (Vercel)</td></tr>
-          <tr><td><code>UPSTASH_REDIS_REST_URL</code></td><td>Hayır</td><td>Upstash Redis REST URL (cache için)</td></tr>
-          <tr><td><code>UPSTASH_REDIS_REST_TOKEN</code></td><td>Hayır</td><td>Upstash Redis REST token</td></tr>
+          <tr><td><code>PORT</code></td><td>No</td><td>Server port (default: 8080)</td></tr>
+          <tr><td><code>FIREBASE_CREDENTIALS_PATH</code></td><td>No</td><td>Path to Firebase service account JSON (local)</td></tr>
+          <tr><td><code>FIREBASE_CREDENTIALS_JSON</code></td><td>No</td><td>Full Firebase credentials JSON string (Vercel)</td></tr>
+          <tr><td><code>UPSTASH_REDIS_REST_URL</code></td><td>No</td><td>Upstash Redis REST URL (for cache)</td></tr>
+          <tr><td><code>UPSTASH_REDIS_REST_TOKEN</code></td><td>No</td><td>Upstash Redis REST token</td></tr>
         </tbody>
       </table>
 
-      <h2 id="env-dosyasi">.env dosyası</h2>
+      <h2 id="env-file">.env file</h2>
       <pre><code>cp .env.example .env</code></pre>
-      <p>Sonra <code>.env</code> dosyasını düzenleyip değerleri girin.</p>
+      <p>Then edit <code>.env</code> and fill in your values.</p>
 
-      <h2 id="setup-sorulari">gofire setup soruları</h2>
+      <h2 id="setup-questions">gofire setup questions</h2>
       <table>
         <thead>
-          <tr><th>Soru</th><th>Varsayılan</th><th>Açıklama</th></tr>
+          <tr><th>Question</th><th>Default</th><th>Description</th></tr>
         </thead>
         <tbody>
-          <tr><td>Server port</td><td>8080</td><td>Yerel sunucu portu</td></tr>
-          <tr><td>Firebase credentials JSON path</td><td>(boş)</td><td>Service account JSON yolu, boş bırakırsanız auth devre dışı kalır</td></tr>
-          <tr><td>Enable Redis cache (Upstash)?</td><td>n</td><td>y veya n</td></tr>
-          <tr><td>Upstash Redis REST URL</td><td>—</td><td>Redis aktifse, örn. https://your-db.upstash.io</td></tr>
-          <tr><td>Upstash Redis REST Token</td><td>—</td><td>Redis aktifse</td></tr>
-          <tr><td>Save configuration to .env?</td><td>n</td><td>Cevapları .env'e yaz</td></tr>
+          <tr><td>Server port</td><td>8080</td><td>Local server port</td></tr>
+          <tr><td>Firebase credentials JSON path</td><td>(empty)</td><td>Service account JSON path; leave empty to disable auth</td></tr>
+          <tr><td>Enable Redis cache (Upstash)?</td><td>n</td><td>y or n</td></tr>
+          <tr><td>Upstash Redis REST URL</td><td>—</td><td>If Redis enabled, e.g. https://your-db.upstash.io</td></tr>
+          <tr><td>Upstash Redis REST Token</td><td>—</td><td>If Redis enabled</td></tr>
+          <tr><td>Save configuration to .env?</td><td>n</td><td>Write answers to .env</td></tr>
         </tbody>
       </table>
     </main>
