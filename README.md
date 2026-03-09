@@ -1,5 +1,7 @@
 # GoFire — *Firebase-authenticated Go APIs from YAML*
 
+> 📖 **[Documentation](https://messivite.github.io/goFire/)** — guides, API reference, deployment
+
 [![Go Report Card](https://goreportcard.com/badge/github.com/messivite/goFire)](https://goreportcard.com/report/github.com/messivite/goFire)
 [![pkg.go.dev](https://pkg.go.dev/badge/github.com/messivite/goFire.svg)](https://pkg.go.dev/github.com/messivite/goFire)
 [![Go version](https://img.shields.io/github/go-mod/go-version/messivite/goFire)](https://github.com/messivite/goFire)
