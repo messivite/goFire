@@ -53,6 +53,7 @@
       <p class="lead">GoFire'ı Go modülü olarak kullanabilir veya CLI aracını global olarak yükleyebilirsiniz.</p>
 
       <h2 id="go-modulu">Go modülü olarak</h2>
+      <p>Yeni projede önce <code>go mod init</code> çalıştırın, ardından:</p>
       <pre><code>go get github.com/messivite/goFire</code></pre>
 
       <h2 id="cli">CLI olarak</h2>
@@ -62,6 +63,10 @@
 
       <div class="callout">
         <p><strong>command not found?</strong> Add Go's bin directory to PATH: <code>export PATH=$PATH:$(go env GOPATH)/bin</code> — or run with full path: <code>$(go env GOPATH)/bin/gofire init</code></p>
+      </div>
+
+      <div class="callout">
+        <p><strong>missing go.sum?</strong> <code>go mod tidy</code> çalıştırın. <strong>not a main package?</strong> Proje kökünden <code>go run ./cmd/server</code> kullanın.</p>
       </div>
 
       <h2 id="gereksinimler">Gereksinimler</h2>

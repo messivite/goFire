@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"os"
 	"os/exec"
+	"path/filepath"
 	"strings"
 
 	apiyaml "github.com/messivite/goFire/internal/yaml"
@@ -116,7 +117,25 @@ func cmdInit() {
 	}
 
 	fmt.Printf("Created %s with default health endpoints.\n", yamlPath)
-	fmt.Println("Run 'gofire gen' to generate handler and server files.")
+
+	mainPath := filepath.Join("cmd", "server", "main.go")
+	if _, err := os.Stat(mainPath); err == nil {
+		fmt.Printf("%s already exists. Skipping.\n", mainPath)
+	} else {
+		wd, _ := os.Getwd()
+		modulePath := scaffold.ReadGoModModule(wd)
+		if modulePath == "" {
+			modulePath = "example"
+			fmt.Println("WARNING: go.mod not found. Using module path 'example' — run 'go mod init <module>' and fix cmd/server/main.go import if needed.")
+		}
+		if err := scaffold.GenerateCmdServer(mainPath, modulePath); err != nil {
+			fmt.Printf("Error creating %s: %v\n", mainPath, err)
+			os.Exit(1)
+		}
+		fmt.Printf("Created %s\n", mainPath)
+	}
+
+	fmt.Println("Run 'gofire gen' to generate handlers and server, then 'go run ./cmd/server'.")
 }
 
 // --- add ---
@@ -184,8 +203,14 @@ func cmdGen() {
 		os.Exit(1)
 	}
 
+	wd, _ := os.Getwd()
+	modulePath := scaffold.ReadGoModModule(wd)
+	if modulePath == "" {
+		modulePath = "example"
+	}
+
 	fmt.Println("Generating server...")
-	if err := scaffold.GenerateServer(cfg, "server"); err != nil {
+	if err := scaffold.GenerateServer(cfg, "server", modulePath); err != nil {
 		fmt.Printf("Error generating server: %v\n", err)
 		os.Exit(1)
 	}

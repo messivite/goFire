@@ -84,18 +84,19 @@
       <pre><code># CLI'yı yükle
 go install github.com/messivite/goFire/cmd/gofire@latest
 
-# Yeni proje oluştur
+# Proje oluştur
+mkdir my-api && cd my-api
+go mod init my-api
+go get github.com/messivite/goFire
 gofire init
-
-# Yapılandır (port, Firebase, Redis)
 gofire setup
 
-# Endpoint ekle
+# Endpoint ekle ve kod üret
 gofire add endpoint "GET /users"
 gofire add endpoint "POST /users --auth"
-
-# Kod üret ve çalıştır
 gofire gen
+go mod tidy
+
 go run ./cmd/server</code></pre>
 
       <p><a href="getting-started/quick-start.html" class="cta">Detaylı rehbere git →</a></p>

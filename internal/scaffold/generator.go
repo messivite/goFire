@@ -69,21 +69,44 @@ func extractParamNames(path string) []paramInfo {
 }
 
 type serverData struct {
+	ModulePath    string
 	PublicRoutes  []routeData
-	AuthRoutes   []routeData
+	AuthRoutes    []routeData
 	HasAuthRoutes bool
 }
 
 // GenerateHandlers creates handler stub files for endpoints that don't already have one.
-// Built-in handlers (Health, Root) are skipped.
+// Built-in handlers (Health, Root) get specific implementations; others get generic stubs.
 func GenerateHandlers(cfg *apiyaml.APIConfig, handlersDir string) error {
 	if err := os.MkdirAll(handlersDir, 0755); err != nil {
 		return err
 	}
 
-	builtins := map[string]bool{"Health": true, "Root": true}
+	// Always ensure Health and Root exist (used by server)
+	for _, name := range []string{"Health", "Root"} {
+		filename := strings.ToLower(name) + ".go"
+		fullPath := filepath.Join(handlersDir, filename)
+		if _, err := os.Stat(fullPath); err == nil {
+			continue
+		}
+		var content string
+		switch name {
+		case "Health":
+			content = healthHandlerContent
+		case "Root":
+			content = rootHandlerContent
+		default:
+			continue
+		}
+		if err := os.WriteFile(fullPath, []byte(content), 0644); err != nil {
+			return err
+		}
+		fmt.Printf("  created %s\n", fullPath)
+	}
 
+	builtins := map[string]bool{"Health": true, "Root": true}
 	seen := map[string]bool{}
+
 	for _, ep := range cfg.Endpoints {
 		if builtins[ep.Handler] || seen[ep.Handler] {
 			continue
@@ -138,12 +161,17 @@ func GenerateHandlers(cfg *apiyaml.APIConfig, handlersDir string) error {
 }
 
 // GenerateServer writes server/server.go from the api.yaml config.
-func GenerateServer(cfg *apiyaml.APIConfig, serverDir string) error {
+// modulePath is read from go.mod; if empty, falls back to "example".
+func GenerateServer(cfg *apiyaml.APIConfig, serverDir string, modulePath string) error {
 	if err := os.MkdirAll(serverDir, 0755); err != nil {
 		return err
 	}
+	if modulePath == "" {
+		modulePath = "example"
+	}
 
 	var sd serverData
+	sd.ModulePath = modulePath
 	for _, ep := range cfg.Endpoints {
 		rd := routeData{
 			ChiMethod: chiMethod(ep.Method),
@@ -176,6 +204,27 @@ func GenerateServer(cfg *apiyaml.APIConfig, serverDir string) error {
 
 	fmt.Printf("  generated %s\n", fullPath)
 	return nil
+}
+
+// GenerateCmdServer creates cmd/server/main.go. modulePath from go.mod; if empty, uses "example".
+func GenerateCmdServer(mainPath string, modulePath string) error {
+	dir := filepath.Dir(mainPath)
+	if err := os.MkdirAll(dir, 0755); err != nil {
+		return err
+	}
+	if modulePath == "" {
+		modulePath = "example"
+	}
+	tmpl, err := template.New("cmdmain").Parse(cmdMainTemplate)
+	if err != nil {
+		return err
+	}
+	f, err := os.Create(mainPath)
+	if err != nil {
+		return err
+	}
+	defer f.Close()
+	return tmpl.Execute(f, struct{ ModulePath string }{ModulePath: modulePath})
 }
 
 func chiMethod(method string) string {

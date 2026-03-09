@@ -47,7 +47,7 @@
         <a href="#yapilandir">2. Yapılandır</a>
         <a href="#endpoint-ekle">3. Endpoint ekle</a>
         <a href="#kod-uret">4. Kod üret</a>
-        <a href="#calistir">5. Çalıştır</a>
+        <a href="#calistir">5. Server ve çalıştır</a>
       </div>
     </nav>
     <main class="main">
@@ -57,8 +57,12 @@
       <h2 id="proje-olustur">1. Proje oluştur</h2>
       <pre><code>mkdir my-api && cd my-api
 go mod init my-api
+go get github.com/messivite/goFire
 gofire init</code></pre>
-      <p><code>gofire init</code> varsayılan <code>api.yaml</code> ve health endpoint'lerini oluşturur.</p>
+      <p><code>go mod init</code> ile Go modülü oluşturulur. <code>go get</code> ile GoFire bağımlılığı eklenir. <code>gofire init</code> varsayılan <code>api.yaml</code>, <code>cmd/server/main.go</code> ve health endpoint'lerini oluşturur.</p>
+      <div class="callout">
+        <p><strong>Önemli:</strong> <code>go.mod</code> olmadan <code>gofire gen</code> çalışmaz. Bu adımları atlamayın.</p>
+      </div>
 
       <h2 id="yapilandir">2. Yapılandır</h2>
       <pre><code>gofire setup</code></pre>
@@ -71,12 +75,17 @@ gofire add endpoint "GET /users/:id --auth"</code></pre>
       <p><code>--auth</code> parametresi endpoint'i Firebase Auth ile korur.</p>
 
       <h2 id="kod-uret">4. Kod üret</h2>
-      <pre><code>gofire gen</code></pre>
-      <p>Handler stub'ları ve server route'larını <code>api.yaml</code>'dan üretir.</p>
+      <pre><code>gofire gen
+go mod tidy</code></pre>
+      <p>Handler stub'ları ve server route'larını <code>api.yaml</code>'dan üretir. <code>go mod tidy</code> bağımlılıkları indirir ve <code>go.sum</code> oluşturur.</p>
 
-      <h2 id="calistir">5. Çalıştır</h2>
+      <h2 id="calistir">5. Sunucuyu çalıştır</h2>
+      <p><code>gofire init</code> zaten <code>cmd/server/main.go</code> oluşturmuştur. <code>gofire gen</code> sonrası doğrudan çalıştırın:</p>
       <pre><code>go run ./cmd/server</code></pre>
-      <p>Sunucu varsayılan olarak <code>http://localhost:8080</code> adresinde çalışır.</p>
+      <p>Sunucu varsayılan olarak <code>http://localhost:8080</code> adresinde çalışır. Proje kök dizininden <code>go run ./cmd/server</code> çalıştırın (terminalde <code>my-api/</code> içinde olun).</p>
+      <div class="callout">
+        <p><strong>missing go.sum / not a main package?</strong> <code>go mod tidy</code> çalıştırın. <code>go run .</code> yerine <code>go run ./cmd/server</code> kullanın.</p>
+      </div>
     </main>
   </div>
 </body>
