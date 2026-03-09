@@ -99,8 +99,9 @@ endpoints:
       <p>Resolution: CLI flags &gt; <code>.gofire.yaml</code> &gt; <code>api.yaml</code> output &gt; default. Then <code>gofire gen</code> uses these paths without flags.</p>
 
       <h2 id="after-changes">After api.yaml changes</h2>
-      <p>After editing <code>api.yaml</code>, regenerate handlers and routes:</p>
+      <p>After editing <code>api.yaml</code> or running <code>gofire add endpoint</code>, run:</p>
       <pre><code>gofire gen</code></pre>
+      <p>The server loads <code>api.yaml</code> at startup, so new endpoints work after generating handlers only. No need to regenerate the server for new routes. Use <code>gofire gen --handlers-only</code> if you have a custom server.</p>
 
       <footer class="doc-footer">
         <p>Made with ❤️ by <a href="https://www.linkedin.com/in/mustafa-aksoy-87532a385/" target="_blank" rel="noopener">Mustafa Aksoy</a></p>

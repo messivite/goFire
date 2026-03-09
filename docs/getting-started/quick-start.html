@@ -103,7 +103,7 @@ gofire add endpoint "GET /users/:id" --auth</code></pre>
       <h2 id="generate">4. Generate code</h2>
       <pre><code>gofire gen
 go mod tidy</code></pre>
-      <p>Generates handler stubs and server routes from <code>api.yaml</code>. <code>go mod tidy</code> fetches dependencies and updates <code>go.sum</code>.</p>
+      <p>Generates handler stubs, <code>handlers/registry.go</code>, and server routes. The server loads api.yaml at runtime, so when you add endpoints later with <code>gofire add</code>, running <code>gofire gen</code> again is enough — no server regenerate needed. Use <code>gofire gen --handlers-only</code> for custom server projects.</p>
 
       <h2 id="run">5. Run server</h2>
       <p><code>gofire init</code> already created <code>cmd/server/main.go</code>. After <code>gofire gen</code>, run:</p>

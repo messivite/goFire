@@ -48,7 +48,7 @@ Usage:
   gofire init                                   Create api.yaml and cmd/server in existing project
   gofire setup                                  Interactive config (port, Firebase, Redis) and save to .env
   gofire add endpoint "METHOD /path" [--auth]   Add an endpoint
-  gofire gen [--server-dir DIR] [--handlers-dir DIR]
+  gofire gen [--server-dir DIR] [--handlers-dir DIR] [--handlers-only]
                                                 Generate handlers + server from api.yaml
   gofire list                                   List all endpoints
   gofire deploy                                 Interactive Vercel deploy`)
@@ -305,6 +305,7 @@ func cmdGen() {
 	wd, _ := os.Getwd()
 
 	var flagServerDir, flagHandlersDir string
+	flagHandlersOnly := false
 	for i := 2; i < len(os.Args); i++ {
 		switch os.Args[i] {
 		case "--server-dir":
@@ -317,6 +318,8 @@ func cmdGen() {
 				flagHandlersDir = os.Args[i+1]
 				i++
 			}
+		case "--handlers-only":
+			flagHandlersOnly = true
 		}
 	}
 
@@ -348,6 +351,11 @@ func cmdGen() {
 	if err := scaffold.GenerateHandlers(cfg, handlersDir); err != nil {
 		fmt.Printf("Error generating handlers: %v\n", err)
 		os.Exit(1)
+	}
+
+	if flagHandlersOnly {
+		fmt.Println("Done (handlers only).")
+		return
 	}
 
 	modulePath := scaffold.ReadGoModModule(wd)

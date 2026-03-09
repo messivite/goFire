@@ -6,6 +6,10 @@ import (
 	"github.com/messivite/goFire/config"
 )
 
+func init() {
+	Register("Root", Root)
+}
+
 func Root(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "text/html; charset=utf-8")
 

@@ -8,8 +8,9 @@ import (
 	"github.com/go-chi/chi/v5"
 	chimw "github.com/go-chi/chi/v5/middleware"
 
+	"github.com/messivite/goFire/apidef"
 	"github.com/messivite/goFire/config"
-	"github.com/messivite/goFire/handlers"
+	handlers "github.com/messivite/goFire/handlers"
 	"github.com/messivite/goFire/middleware"
 )
 
@@ -19,6 +20,11 @@ func NewHandler(cfg *config.Config) (http.Handler, error) {
 	r.Use(chimw.Logger)
 	r.Use(chimw.Recoverer)
 	r.Use(chimw.RequestID)
+
+	apiCfg, err := apidef.Load(apidef.DefaultFile)
+	if err != nil {
+		return nil, fmt.Errorf("loading api.yaml: %w", err)
+	}
 
 	r.Get("/", handlers.Root)
 
@@ -37,18 +43,21 @@ func NewHandler(cfg *config.Config) (http.Handler, error) {
 		log.Println("WARNING: Firebase auth is disabled. All routes are public.")
 	}
 
-	// --- Public routes ---
-	r.Get("/api", handlers.Health)
-	r.Get("/api/health", handlers.Health)
-
-	// --- Auth-protected routes ---
-	if firebaseAuth != nil {
-		r.Group(func(r chi.Router) {
-			r.Use(firebaseAuth.Middleware)
-			r.Get("/users/{id}", handlers.GetUsersById)
-		})
-	} else {
-		r.Get("/users/{id}", handlers.GetUsersById)
+	for _, ep := range apiCfg.Endpoints {
+		fn := handlers.Get(ep.Handler)
+		if fn == nil {
+			log.Printf("WARNING: handler %q not registered, skipping %s %s", ep.Handler, ep.Method, ep.Path)
+			continue
+		}
+		path := apidef.ToChiPath(ep.Path)
+		if ep.Auth && firebaseAuth != nil {
+			r.Group(func(r chi.Router) {
+				r.Use(firebaseAuth.Middleware)
+				r.Method(ep.Method, path, fn)
+			})
+		} else {
+			r.Method(ep.Method, path, fn)
+		}
 	}
 
 	return r, nil

@@ -7,6 +7,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- Handler Registry: `handlers/registry.go` with `Register`/`Get`. Generated handlers auto-register via `init()`
+- Server loads `api.yaml` at runtime — new endpoints work after `gofire add` + `gofire gen` (no server regenerate)
+- `apidef` package for runtime api.yaml: `Load`, `ToChiPath`, `ChiMethod`
+- `gofire gen --handlers-only`: generate only handlers (for custom server projects)
+
 ## [0.1.12] - 2026-03-09
 
 ### Added

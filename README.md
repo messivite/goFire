@@ -20,7 +20,8 @@ A Go toolkit for building Firebase-authenticated APIs with code generation and V
 ## Features
 
 - **Firebase Auth middleware** – Bearer token verification (file path or JSON credentials)
-- **api.yaml** – Define endpoints in YAML, generate Go handlers and routes
+- **api.yaml** – Define endpoints in YAML, generate Go handlers and routes. Server loads api.yaml at runtime, so new endpoints work after `gofire add` + `gofire gen` (no server regenerate).
+- **Handler Registry** – Generated handlers auto-register via `init()`. Use `handlers.Register` for custom handlers.
 - **CLI** – `gofire add`, `gofire gen`, `gofire list`, `gofire deploy`
 - **Vercel-ready** – Serverless deployment with one command
 - **Chi router** – Lightweight, idiomatic Go HTTP routing
@@ -113,7 +114,7 @@ go build ./...
 - **`gofire init`** adds api.yaml and cmd/server/main.go to the current directory. Requires an existing `go.mod` (or you'll get a warning). Run `gofire gen` afterward to generate handlers and server.
 | `gofire setup` | Interactive config (port, Firebase, Redis, optional `.env` and `.gofire.yaml`) |
 | `gofire add endpoint "METHOD /path" [--auth]` | Add an endpoint to `api.yaml` |
-| `gofire gen [--server-dir DIR] [--handlers-dir DIR]` | Generate handler stubs and server routes. Use flags or `api.yaml` output section for custom paths (e.g. `pkg/server`, `pkg/handler`). |
+| `gofire gen [--server-dir DIR] [--handlers-dir DIR] [--handlers-only]` | Generate handlers and server. Server loads api.yaml at runtime; `--handlers-only` skips server. Use output config for custom paths. |
 | `gofire list` | List all endpoints from `api.yaml` |
 | `gofire deploy` | Interactive Vercel deploy (preview or production) |
 
@@ -231,6 +232,7 @@ your-project/
 │   ├── env.go               # Environment config
 │   └── version.go           # Version constant
 ├── handlers/
+│   ├── registry.go          # Register/Get (generated, handlers auto-register)
 │   ├── health.go            # Built-in health handler
 │   ├── root.go              # Built-in root page
 │   └── *.go                 # Generated handler stubs
@@ -254,15 +256,17 @@ your-project/
 ```
 api.yaml  ──→  gofire gen  ──→  handlers/*.go + server/server.go
                                         │
-                              go run ./cmd/server
-                                   or
-                              gofire deploy (Vercel)
+                              Server loads api.yaml at runtime
+                                        │
+                              go run ./cmd/server  or  gofire deploy (Vercel)
 ```
 
 1. Define endpoints in `api.yaml`
-2. Run `gofire gen` to generate handler stubs and server routes
+2. Run `gofire gen` to generate handler stubs and server (with `handlers/registry.go`). Handlers auto-register via `init()`.
 3. Implement your handler logic in `handlers/*.go`
 4. Run locally with `go run ./cmd/server` or deploy with `gofire deploy`
+
+**Add + gen flow:** After `gofire add endpoint`, run `gofire gen` — only new handlers are created; the server reads api.yaml at startup, so no server regenerate is needed. Use `gofire gen --handlers-only` if you have a custom server and want to generate only handlers.
 
 ## License
 

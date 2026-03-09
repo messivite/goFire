@@ -85,7 +85,8 @@
       <h2 id="features">Features</h2>
       <ul>
         <li><strong>Firebase Auth middleware</strong> – Bearer token verification (file path or JSON credentials)</li>
-        <li><strong>api.yaml</strong> – Define endpoints in YAML, Go handlers and routes are auto-generated</li>
+        <li><strong>api.yaml</strong> – Define endpoints in YAML; server loads it at runtime, so new endpoints work after <code>gofire add</code> + <code>gofire gen</code> (no server regenerate)</li>
+        <li><strong>Handler Registry</strong> – Generated handlers auto-register via <code>init()</code>; use <code>handlers.Register</code> for custom handlers</li>
         <li><strong>CLI</strong> – <code>gofire add</code>, <code>gofire gen</code>, <code>gofire list</code>, <code>gofire deploy</code></li>
         <li><strong>Vercel-ready</strong> – One-command serverless deployment</li>
         <li><strong>Chi router</strong> – Lightweight, idiomatic Go HTTP routing</li>
@@ -122,13 +123,14 @@ go run ./cmd/server</code></pre>
 
       <h2 id="how-it-works">How It Works</h2>
       <div class="callout">
-        <p><strong>Flow:</strong> <code>api.yaml</code> → <code>gofire gen</code> → handlers + server generated → <code>go run</code> or <code>gofire deploy</code></p>
+        <p><strong>Flow:</strong> <code>api.yaml</code> → <code>gofire gen</code> → handlers + server → server loads api.yaml at runtime → <code>go run</code> or <code>gofire deploy</code></p>
       </div>
       <pre><code>api.yaml  ──→  gofire gen  ──→  handlers/*.go + server/server.go
                                        │
-                             go run ./cmd/server
-                                  or
-                             gofire deploy (Vercel)</code></pre>
+                             Server reads api.yaml at startup
+                                       │
+                             go run ./cmd/server  or  gofire deploy (Vercel)</code></pre>
+      <p><strong>Add + gen:</strong> After <code>gofire add endpoint</code>, run <code>gofire gen</code>. New handlers are generated; the server picks up changes from api.yaml at runtime, so no server regenerate is needed. Use <code>gofire gen --handlers-only</code> for custom server projects.</p>
 
       <footer class="doc-footer">
         <p>Made with ❤️ by <a href="https://www.linkedin.com/in/mustafa-aksoy-87532a385/" target="_blank" rel="noopener">Mustafa Aksoy</a></p>
