@@ -18,7 +18,8 @@ jobs:
       - name: Skip if release commit
         id: skip
         run: |
-          if [[ "${{ github.event.head_commit.message }}" == chore(release):* ]] || [[ "${{ github.event.head_commit.message }}" == *"[skip ci]"* ]]; then
+          MSG="${{ github.event.head_commit.message }}"
+          if echo "$MSG" | grep -qE 'chore\(release\):|\[skip ci\]'; then
             echo "skip=true" >> $GITHUB_OUTPUT
           else
             echo "skip=false" >> $GITHUB_OUTPUT
