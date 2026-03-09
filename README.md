@@ -56,6 +56,10 @@ go run ./cmd/server
 
 > **Tip:** Or clone this repo as a template: `git clone https://github.com/messivite/goFire.git my-api && cd my-api`
 
+## Install Demo (Video)
+
+[![GoFire Install & Demo](https://img.youtube.com/vi/c6Xz76uUH38/hqdefault.jpg)](https://youtu.be/c6Xz76uUH38)
+
 ## Installation
 
 ```bash

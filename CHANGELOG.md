@@ -27,14 +27,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
-- `gofire new <name>` creates a complete project from scratch (directory, go mod init, api.yaml, handlers, server, .gitignore)
+- `gofire new <name>` creates a complete project from scratch (directory, go mod init, api.yaml, handlers, server, .gitignore, Makefile)
 - `gofire init` now creates `cmd/server/main.go` in addition to `api.yaml` (module path from `go.mod`)
 - `gofire gen` generates `handlers/health.go` and `handlers/root.go` in the project (no manual main entry point needed)
 - Documentation site (HTML) with GitHub Pages deploy at https://messivite.github.io/goFire/
-- semantic-release for automated versioning and releases (conventional commits)
+- GitHub Pages workflow for docs deployment
 - README badges (Go Report Card, pkg.go.dev, License, GitHub stars, etc.)
 - Documentation link in README
 - Updating section in README with `go get -u`, `go mod tidy`, `go build`
+- Install Demo video linked from README and docs home
+- Social header icons and footer linking to GitHub, npm, and LinkedIn
+- "new vs init" guidance in README and docs
 
 ### Changed
 
