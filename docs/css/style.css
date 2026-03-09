@@ -117,6 +117,36 @@ body {
   color: var(--bg) !important;
 }
 
+.header-author {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-left: auto;
+  padding-left: 1rem;
+  border-left: 1px solid var(--border);
+}
+
+.header-author a {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  color: var(--text-muted);
+  border-radius: 8px;
+  transition: color 0.15s, background 0.15s;
+}
+
+.header-author a:hover {
+  color: var(--accent);
+  background: var(--code-bg);
+}
+
+.header-author svg {
+  width: 20px;
+  height: 20px;
+}
+
 /* ========== LAYOUT ========== */
 .layout {
   display: flex;
@@ -435,4 +465,24 @@ li {
   .main {
     padding: 2rem 1.5rem 3rem;
   }
+}
+
+/* ========== FOOTER ========== */
+.doc-footer {
+  margin-top: 4rem;
+  padding-top: 2rem;
+  border-top: 1px solid var(--border);
+  text-align: center;
+  font-size: 0.9rem;
+  color: var(--text-muted);
+}
+
+.doc-footer a {
+  color: var(--accent);
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.doc-footer a:hover {
+  text-decoration: underline;
 }

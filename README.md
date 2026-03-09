@@ -246,3 +246,7 @@ api.yaml  ──→  gofire gen  ──→  handlers/*.go + server/server.go
 ## License
 
 MIT
+
+---
+
+Made with ❤️ by [Mustafa Aksoy](https://www.linkedin.com/in/mustafa-aksoy-87532a385/)
