@@ -7,7 +7,7 @@ import (
 	"strings"
 	"text/template"
 
-	apiyaml "github.com/messivite/goFire/internal/yaml"
+	apiyaml "github.com/mustafaaksoy/goFire/internal/yaml"
 )
 
 type handlerData struct {

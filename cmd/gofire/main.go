@@ -7,8 +7,8 @@ import (
 	"os/exec"
 	"strings"
 
-	apiyaml "github.com/messivite/goFire/internal/yaml"
-	"github.com/messivite/goFire/internal/scaffold"
+	apiyaml "github.com/mustafaaksoy/goFire/internal/yaml"
+	"github.com/mustafaaksoy/goFire/internal/scaffold"
 )
 
 func main() {

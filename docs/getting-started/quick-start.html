@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hızlı Başlangıç - GoFire</title>
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+  <button class="mobile-toggle" onclick="document.querySelector('.sidebar').classList.toggle('open')">Menü</button>
+  <div class="layout">
+    <nav class="sidebar">
+      <div class="logo"><a href="../index.html">GoFire</a></div>
+      <div class="nav-section">
+        <div class="nav-section-title">Başlarken</div>
+        <a href="../index.html">Giriş</a>
+        <a href="installation.html">Kurulum</a>
+        <a href="quick-start.html" class="active">Hızlı Başlangıç</a>
+        <a href="configuration.html">Yapılandırma</a>
+      </div>
+      <div class="nav-section">
+        <div class="nav-section-title">Rehberler</div>
+        <a href="../guides/api-yaml.html">api.yaml</a>
+        <a href="../guides/firebase-auth.html">Firebase Auth</a>
+        <a href="../guides/upstash-redis.html">Upstash Redis</a>
+        <a href="../guides/vercel-deploy.html">Vercel Deployment</a>
+      </div>
+      <div class="nav-section">
+        <div class="nav-section-title">Referans</div>
+        <a href="../cli/reference.html">CLI Komutları</a>
+        <a href="../project-structure.html">Proje Yapısı</a>
+      </div>
+    </nav>
+    <main class="main">
+      <h1>Hızlı Başlangıç</h1>
+
+      <h2>1. Proje oluştur</h2>
+      <pre><code>mkdir my-api && cd my-api
+go mod init my-api
+gofire init</code></pre>
+      <p><code>gofire init</code> varsayılan <code>api.yaml</code> ve health endpoint'lerini oluşturur.</p>
+
+      <h2>2. Yapılandır</h2>
+      <pre><code>gofire setup</code></pre>
+      <p>Port, Firebase credentials ve Redis ayarlarını interaktif olarak yapılandırın. Değerleri <code>.env</code> dosyasına kaydedebilirsiniz.</p>
+
+      <h2>3. Endpoint ekle</h2>
+      <pre><code>gofire add endpoint "GET /users"
+gofire add endpoint "POST /users --auth"
+gofire add endpoint "GET /users/:id --auth"</code></pre>
+      <p><code>--auth</code> parametresi endpoint'i Firebase Auth ile korur.</p>
+
+      <h2>4. Kod üret</h2>
+      <pre><code>gofire gen</code></pre>
+      <p>Handler stub'ları ve server route'larını <code>api.yaml</code>'dan üretir.</p>
+
+      <h2>5. Çalıştır</h2>
+      <pre><code>go run ./cmd/server</code></pre>
+      <p>Sunucu varsayılan olarak <code>http://localhost:8080</code> adresinde çalışır.</p>
+    </main>
+  </div>
+</body>
+</html>

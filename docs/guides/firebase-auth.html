@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Firebase Auth - GoFire</title>
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+  <button class="mobile-toggle" onclick="document.querySelector('.sidebar').classList.toggle('open')">Menü</button>
+  <div class="layout">
+    <nav class="sidebar">
+      <div class="logo"><a href="../index.html">GoFire</a></div>
+      <div class="nav-section">
+        <div class="nav-section-title">Başlarken</div>
+        <a href="../index.html">Giriş</a>
+        <a href="../getting-started/installation.html">Kurulum</a>
+        <a href="../getting-started/quick-start.html">Hızlı Başlangıç</a>
+        <a href="../getting-started/configuration.html">Yapılandırma</a>
+      </div>
+      <div class="nav-section">
+        <div class="nav-section-title">Rehberler</div>
+        <a href="api-yaml.html">api.yaml</a>
+        <a href="firebase-auth.html" class="active">Firebase Auth</a>
+        <a href="upstash-redis.html">Upstash Redis</a>
+        <a href="vercel-deploy.html">Vercel Deployment</a>
+      </div>
+      <div class="nav-section">
+        <div class="nav-section-title">Referans</div>
+        <a href="../cli/reference.html">CLI Komutları</a>
+        <a href="../project-structure.html">Proje Yapısı</a>
+      </div>
+    </nav>
+    <main class="main">
+      <h1>Firebase Auth</h1>
+      <p>Firebase Auth opsiyoneldir. Aktif etmek için:</p>
+
+      <h2>1. Service account indir</h2>
+      <p>Firebase Console'dan service account JSON dosyasını indirin.</p>
+
+      <h2>2. Ortam değişkenini ayarla</h2>
+      <pre><code>FIREBASE_CREDENTIALS_PATH=./service-account.json</code></pre>
+
+      <h2>3. api.yaml'da auth kullan</h2>
+      <p><code>auth: true</code> olan endpoint'ler <code>Authorization: Bearer &lt;token&gt;</code> header'ı gerektirir.</p>
+
+      <h2>Vercel'de</h2>
+      <p>Vercel'de dosya yolu yerine JSON string kullanın:</p>
+      <pre><code>FIREBASE_CREDENTIALS_JSON='{"type":"service_account",...}'</code></pre>
+      <p>Veya:</p>
+      <pre><code>vercel env add FIREBASE_CREDENTIALS_JSON production</code></pre>
+    </main>
+  </div>
+</body>
+</html>
