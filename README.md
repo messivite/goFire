@@ -10,6 +10,7 @@
 [![GitHub last commit](https://img.shields.io/github/last-commit/messivite/goFire)](https://github.com/messivite/goFire/commits/main)
 [![GitHub release](https://img.shields.io/github/v/release/messivite/goFire)](https://github.com/messivite/goFire/releases)
 [![GitHub contributors](https://img.shields.io/github/contributors/messivite/goFire)](https://github.com/messivite/goFire/graphs/contributors)
+[![Documentation](https://img.shields.io/badge/docs-messivite.github.io/goFire-blue)](https://messivite.github.io/goFire/)
 
 A Go toolkit for building Firebase-authenticated APIs with code generation and Vercel deployment.
 
@@ -49,6 +50,16 @@ go run ./cmd/server
 
 ```bash
 go get github.com/messivite/goFire
+```
+
+## Updating
+
+Projeyi son sürüme güncellemek için:
+
+```bash
+go get -u github.com/messivite/goFire
+go mod tidy
+go build ./...
 ```
 
 ## CLI Commands
