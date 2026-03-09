@@ -61,6 +61,7 @@
 │   ├── env.go               # Environment config
 │   └── version.go           # Version constant
 ├── handlers/                # Or pkg/handler with gofire gen --handlers-dir pkg/handler
+│   ├── registry.go          # Register/Get; handlers auto-register via init()
 │   ├── health.go            # Built-in health handler
 │   ├── root.go              # Built-in root page
 │   └── *.go                 # Generated handler stubs
@@ -77,6 +78,9 @@
 ├── vercel.json
 ├── .env.example
 └── go.mod</code></pre>
+
+      <h2 id="handler-registry">Handler registry</h2>
+      <p>Generated handlers call <code>init() { Register("Name", Name) }</code> so they are auto-registered. The server loads api.yaml at startup and wires routes via <code>handlers.Get(name)</code>. For custom handlers with dependency injection, call <code>handlers.Register("MyHandler", myHandler)</code> before the server starts.</p>
 
       <h2 id="custom-layouts">Custom layouts</h2>
       <p>Add to <code>.gofire.yaml</code> (project root) or <code>api.yaml</code>. Then <code>gofire gen</code> uses these paths without flags:</p>

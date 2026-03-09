@@ -49,6 +49,7 @@
       <div class="toc">
         <div class="toc-title">On this page</div>
         <a href="#commands">Command table</a>
+        <a href="#handlers-only">--handlers-only</a>
         <a href="#custom-output-paths">Custom output paths</a>
         <a href="#new-vs-init">new vs init</a>
         <a href="#examples">Examples</a>
@@ -67,11 +68,15 @@
           <tr><td><code>gofire init</code></td><td>Create api.yaml and cmd/server/main.go in existing project. Use when you already have go.mod.</td></tr>
           <tr><td><code>gofire setup</code></td><td>Interactive config (port, Firebase, Redis). Optionally save to .env and create .gofire.yaml with output paths.</td></tr>
           <tr><td><code>gofire add endpoint "METHOD /path" [--auth]</code></td><td>Add endpoint to api.yaml</td></tr>
-          <tr><td><code>gofire gen [--server-dir DIR] [--handlers-dir DIR]</code></td><td>Generate handler stubs and server routes. Use flags for custom paths (e.g. <code>pkg/server</code>, <code>pkg/handler</code>).</td></tr>
+          <tr><td><code>gofire gen [--server-dir DIR] [--handlers-dir DIR] [--handlers-only]</code></td><td>Generate handlers and server. Server loads api.yaml at runtime. Use <code>--handlers-only</code> to generate only handlers (no server).</td></tr>
           <tr><td><code>gofire list</code></td><td>List all endpoints from api.yaml</td></tr>
           <tr><td><code>gofire deploy</code></td><td>Interactive Vercel deploy (preview or production)</td></tr>
         </tbody>
       </table>
+
+      <h2 id="handlers-only">--handlers-only</h2>
+      <p>Generate only handler files; do not touch <code>server/server.go</code>. Useful when you have a custom server that reads api.yaml at runtime or uses a different routing setup.</p>
+      <pre><code>gofire gen --handlers-only</code></pre>
 
       <h2 id="custom-output-paths">Custom output paths</h2>
       <p>Define paths once so you don't repeat <code>--server-dir</code> / <code>--handlers-dir</code>. Add to <code>.gofire.yaml</code> (project root) or <code>api.yaml</code>:</p>

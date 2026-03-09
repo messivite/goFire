@@ -88,6 +88,24 @@ func GenerateHandlers(cfg *apiyaml.APIConfig, handlersDir string) error {
 
 	pkgName := filepath.Base(handlersDir)
 
+	registryPath := filepath.Join(handlersDir, "registry.go")
+	if _, err := os.Stat(registryPath); err != nil {
+		tmpl, err := template.New("registry").Parse(registryTemplate)
+		if err != nil {
+			return err
+		}
+		f, err := os.Create(registryPath)
+		if err != nil {
+			return err
+		}
+		err = tmpl.Execute(f, struct{ PackageName string }{PackageName: pkgName})
+		f.Close()
+		if err != nil {
+			return err
+		}
+		fmt.Printf("  created %s\n", registryPath)
+	}
+
 	builtinTemplates := map[string]string{
 		"Health": healthHandlerTemplate,
 		"Root":   rootHandlerContent,

@@ -5,8 +5,11 @@ import (
 	"net/http"
 
 	"github.com/go-chi/chi/v5"
-
 )
+
+func init() {
+	Register("GetUsersById", GetUsersById)
+}
 
 // GetUsersById handles GET /users/:id
 func GetUsersById(w http.ResponseWriter, r *http.Request) {
