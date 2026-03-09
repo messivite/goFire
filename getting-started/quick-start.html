@@ -84,6 +84,11 @@ go get github.com/messivite/goFire
 gofire init</code></pre>
       <p><code>gofire init</code> adds api.yaml and cmd/server/main.go to the current directory. Requires <code>go.mod</code>. Run <code>gofire gen</code> next to generate handlers and server.</p>
       <div class="callout">
+        <p><strong>Custom layout (pkg/server, pkg/handler)?</strong> By default <code>gofire gen</code> writes to <code>server/</code> and <code>handlers/</code>. If your project uses <code>pkg/server</code> and <code>pkg/handler</code>, run:</p>
+        <pre><code>gofire gen --server-dir pkg/server --handlers-dir pkg/handler</code></pre>
+        <p>Or add to api.yaml: <code>output: { serverDir: pkg/server, handlersDir: pkg/handler }</code>. See <a href="../guides/api-yaml.html#output">api.yaml output section</a> and <a href="../project-structure.html#custom-layouts">Custom layouts</a>.</p>
+      </div>
+      <div class="callout">
         <p><strong>Important:</strong> <code>gofire gen</code> requires <code>go.mod</code>. Do not skip these steps.</p>
       </div>
 

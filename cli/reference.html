@@ -49,6 +49,7 @@
       <div class="toc">
         <div class="toc-title">On this page</div>
         <a href="#commands">Command table</a>
+        <a href="#custom-output-paths">Custom output paths</a>
         <a href="#new-vs-init">new vs init</a>
         <a href="#examples">Examples</a>
       </div>
@@ -66,11 +67,19 @@
           <tr><td><code>gofire init</code></td><td>Create api.yaml and cmd/server/main.go in existing project. Use when you already have go.mod.</td></tr>
           <tr><td><code>gofire setup</code></td><td>Interactive config (port, Firebase, Redis) and save to .env</td></tr>
           <tr><td><code>gofire add endpoint "METHOD /path" [--auth]</code></td><td>Add endpoint to api.yaml</td></tr>
-          <tr><td><code>gofire gen</code></td><td>Generate handler stubs and server routes from api.yaml</td></tr>
+          <tr><td><code>gofire gen [--server-dir DIR] [--handlers-dir DIR]</code></td><td>Generate handler stubs and server routes. Use flags for custom paths (e.g. <code>pkg/server</code>, <code>pkg/handler</code>).</td></tr>
           <tr><td><code>gofire list</code></td><td>List all endpoints from api.yaml</td></tr>
           <tr><td><code>gofire deploy</code></td><td>Interactive Vercel deploy (preview or production)</td></tr>
         </tbody>
       </table>
+
+      <h2 id="custom-output-paths">Custom output paths</h2>
+      <p>If your project uses <code>pkg/server</code> and <code>pkg/handler</code> instead of <code>server/</code> and <code>handlers/</code>, pass paths to <code>gofire gen</code>:</p>
+      <pre><code>gofire gen --server-dir pkg/server --handlers-dir pkg/handler</code></pre>
+      <p>Or add an <code>output</code> section to <code>api.yaml</code> (CLI flags override):</p>
+      <pre><code>output:
+  serverDir: pkg/server
+  handlersDir: pkg/handler</code></pre>
 
       <h2 id="new-vs-init">new vs init</h2>
       <p><strong>gofire new</strong> — Start from scratch. Creates directory, go.mod, go get, api.yaml, handlers, server, .gitignore. One command, ready to run.</p>
