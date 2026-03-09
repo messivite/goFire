@@ -60,6 +60,10 @@
       <pre><code>go install github.com/messivite/goFire/cmd/gofire@latest</code></pre>
       <p>Kurulumdan sonra <code>gofire</code> komutunu terminalde kullanabilirsiniz. <code>PATH</code> içinde <code>$GOPATH/bin</code> veya <code>$HOME/go/bin</code> olmalıdır.</p>
 
+      <div class="callout">
+        <p><strong>command not found?</strong> Add Go's bin directory to PATH: <code>export PATH=$PATH:$(go env GOPATH)/bin</code> — or run with full path: <code>$(go env GOPATH)/bin/gofire init</code></p>
+      </div>
+
       <h2 id="gereksinimler">Gereksinimler</h2>
       <ul>
         <li>Go 1.19+</li>

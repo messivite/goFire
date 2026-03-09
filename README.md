@@ -28,6 +28,10 @@ A Go toolkit for building Firebase-authenticated APIs with code generation and V
 # Install the CLI
 go install github.com/messivite/goFire/cmd/gofire@latest
 
+# If "command not found": add to PATH or use full path
+# export PATH=$PATH:$(go env GOPATH)/bin
+# $(go env GOPATH)/bin/gofire init
+
 # Initialize a new project
 gofire init
 
@@ -51,6 +55,16 @@ go run ./cmd/server
 ```bash
 go get github.com/messivite/goFire
 ```
+
+### CLI: command not found?
+
+If `gofire` is not found after install, add Go's bin directory to your PATH:
+
+```bash
+export PATH=$PATH:$(go env GOPATH)/bin
+```
+
+Or run with the full path: `$(go env GOPATH)/bin/gofire init`
 
 ## Updating
 
