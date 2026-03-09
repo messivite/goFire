@@ -4,6 +4,12 @@
 [![pkg.go.dev](https://pkg.go.dev/badge/github.com/mustafaaksoy/goFire.svg)](https://pkg.go.dev/github.com/mustafaaksoy/goFire)
 [![Go version](https://img.shields.io/github/go-mod/go-version/mustafaaksoy/goFire)](https://github.com/mustafaaksoy/goFire)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
+[![GitHub stars](https://img.shields.io/github/stars/mustafaaksoy/goFire)](https://github.com/mustafaaksoy/goFire/stargazers)
+[![GitHub forks](https://img.shields.io/github/forks/mustafaaksoy/goFire)](https://github.com/mustafaaksoy/goFire/network)
+[![GitHub issues](https://img.shields.io/github/issues/mustafaaksoy/goFire)](https://github.com/mustafaaksoy/goFire/issues)
+[![GitHub last commit](https://img.shields.io/github/last-commit/mustafaaksoy/goFire)](https://github.com/mustafaaksoy/goFire/commits/main)
+[![GitHub release](https://img.shields.io/github/v/release/mustafaaksoy/goFire)](https://github.com/mustafaaksoy/goFire/releases)
+[![GitHub contributors](https://img.shields.io/github/contributors/mustafaaksoy/goFire)](https://github.com/mustafaaksoy/goFire/graphs/contributors)
 
 A Go toolkit for building Firebase-authenticated APIs with code generation and Vercel deployment.
 
