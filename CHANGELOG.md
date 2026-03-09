@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.1.12] - 2026-03-09
+
 ### Added
 
 - Custom output paths for `gofire gen`: `--server-dir` and `--handlers-dir` CLI flags (e.g. `pkg/server`, `pkg/handler`)
